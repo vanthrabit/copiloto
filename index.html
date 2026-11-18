@@ -14,7 +14,7 @@
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *,*::before,*::after{box-sizing:inherit}
 body{margin:0;background:var(--bg);color:var(--txt);font:19px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
-.app{max-width:520px;margin:0 auto;padding:14px 14px 140px}
+.app{max-width:520px;margin:0 auto;padding:14px 14px 95px}
 h1{font-size:22px;margin:0 0 12px}h2{font-size:22px;margin:22px 0 10px}
 button,input,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
@@ -51,7 +51,7 @@ li{counter-increment:s;position:relative;background:var(--in);border-radius:14px
 li::before{content:counter(s);position:absolute;left:12px;top:12px;width:36px;height:36px;border-radius:50%;background:var(--blu);color:#06090d;font-weight:800;display:grid;place-items:center}
 li.d{opacity:.55}li.d::before{content:"✓";background:var(--grn)}
 li b{display:block}
-nav{position:fixed;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(3,1fr);background:#0d131b;border-top:2px solid var(--line);padding-bottom:calc(54px + env(safe-area-inset-bottom,0px))}
+nav{position:fixed;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(3,1fr);background:#0d131b;border-top:2px solid var(--line);padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))}
 nav button{min-height:72px;border:0;background:none;font-size:14px;font-weight:700;color:var(--mut);display:grid;place-items:center;align-content:center}
 nav button span{font-size:26px;line-height:1}
 nav button.on{color:#fff;box-shadow:inset 0 4px 0 var(--blu)}
@@ -76,24 +76,23 @@ nav button.on{color:#fff;box-shadow:inset 0 4px 0 var(--blu)}
 #pv .pn{font-size:13px;color:#555}
 @page{size:A4 landscape;margin:12mm}
 @media print{.app,nav{display:none!important}body{background:#fff}#pv.on{position:static;overflow:visible;padding:0}#pv .tb,#pv .pn{display:none}}
-#splash{position:fixed;inset:0;z-index:200;height:100vh;height:100dvh;background:#000;transition:opacity .6s ease,visibility .6s}
+#splash{position:fixed;inset:0;z-index:200;height:100vh;height:100dvh;background:#000;cursor:pointer;transition:opacity .6s ease,visibility .6s}
 #splash.out{opacity:0;visibility:hidden}
 #splash img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-#splash button{position:absolute;left:50%;bottom:calc(64px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);min-height:64px;padding:0 34px;border-radius:32px;border:3px solid #fff;background:#e11d2e;color:#fff;font:800 22px system-ui,sans-serif;white-space:nowrap;box-shadow:0 6px 24px rgba(0,0,0,.6);cursor:pointer}
 @media (prefers-reduced-motion:reduce){#splash{transition:none}}
 @media print{#splash{display:none!important}}
 </style>
 </head>
 <body>
-<div id="splash"><img src="capa.png" alt="Bem-vindo ao Copiloto"><button id="enter">Entrar na Agenda</button></div>
+<div id="splash" role="button" tabindex="0" aria-label="Entrar no Copiloto"><img src="capa.png" alt="Bem-vindo ao Copiloto"></div>
 <div class="app">
 <main id="t1" class="tab on">
 <h1>Ficha diária</h1>
 
 <div class="f"><label for="dt">Data</label><input id="dt" type="date"></div>
 
-<div class="f"><label for="pi">País de início</label>
-<div class="r"><input id="pi" type="text" placeholder="Ex.: Portugal" autocomplete="off"><button class="b" data-g="pi">📍 Obter Local</button></div><div class="h" id="hpi"></div><div class="sc" data-for="pi"></div></div>
+<div class="f"><label for="pi">Local de início (País e ponto)</label>
+<div class="r"><input id="pi" type="text" placeholder="Ex.: Portugal (Área de serviço Torres Vedras)" autocomplete="off"><button class="b" data-g="pi">📍 Obter Local</button></div><div class="h" id="hpi"></div><div class="sc" data-for="pi"></div></div>
 
 <div class="f"><label for="ki">KM inicial</label><input id="ki" type="number" inputmode="numeric" placeholder="377396"></div>
 
@@ -107,8 +106,8 @@ nav button.on{color:#fff;box-shadow:inset 0 4px 0 var(--blu)}
 <div class="f"><label for="hf">Hora final</label>
 <div class="r"><input id="hf" type="time"><button class="b" data-n="hf">Agora</button></div></div>
 
-<div class="f"><label for="pf">País de fim</label>
-<div class="r"><input id="pf" type="text" placeholder="Ex.: Espanha - PV" autocomplete="off"><button class="b" data-g="pf">📍 Obter Local</button></div><div class="h" id="hpf"></div><div class="sc" data-for="pf"></div></div>
+<div class="f"><label for="pf">Local de fim (País e ponto)</label>
+<div class="r"><input id="pf" type="text" placeholder="Ex.: Espanha - PV (Andamur San Román)" autocomplete="off"><button class="b" data-g="pf">📍 Obter Local</button></div><div class="h" id="hpf"></div><div class="sc" data-for="pf"></div></div>
 
 <div class="f"><label for="kf">KM final</label><input id="kf" type="number" inputmode="numeric" placeholder="377988"></div>
 
@@ -239,10 +238,14 @@ $$("[data-g]").forEach(b=>b.onclick=()=>{
   navigator.geolocation.getCurrentPosition(async p=>{
     const la=p.coords.latitude,lo=p.coords.longitude;
     try{
-      const r=await fetch("https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=5&accept-language=pt-PT&lat="+la+"&lon="+lo);
-      const ad=(await r.json()).address||{};let v=ad.country||"";
+      const r=await fetch("https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=18&accept-language=pt-PT&lat="+la+"&lon="+lo);
+      const j=await r.json(),ad=j.address||{};let v=ad.country||"";
       if((ad.country_code||"")==="es"){const sg=(ad["ISO3166-2-lvl4"]||"").split("-")[1];v="Espanha"+(sg?" - "+sg:"")}
       if(!v)throw 0;
+      const bd=ad.building&&ad.building!=="yes"?ad.building:"";
+      const loc=ad.village||ad.hamlet||ad.town||ad.city||ad.municipality||ad.suburb||ad.county||"";
+      const det=(ad.amenity||ad.shop||ad.tourism||ad.leisure||ad.industrial||ad.office||ad.craft||ad.man_made||ad.aeroway||bd||j.name||ad.road||loc||"").trim();
+      if(det)v+=" ("+det+")";
       $("#"+id).value=v;h.textContent="Local detetado: "+v
     }catch(e){h.textContent="Sem internet ou serviço bloqueado. Coordenadas: "+la.toFixed(3)+", "+lo.toFixed(3)+". Escreve o país à mão."}
     b.disabled=false;b.textContent=lab;calc();
@@ -399,7 +402,7 @@ $("#dt").value=today();hist();pre();calc();setInterval(calc,30000);
 <script>
 (function(){const s=document.getElementById('splash');if(!s)return;let d=false;
 const close=()=>{if(d)return;d=true;s.classList.add('out');setTimeout(()=>s.remove(),700)};
-document.getElementById('enter').onclick=close;setTimeout(close,2500)})();
+s.onclick=close;s.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();close()}};setTimeout(close,2000)})();
 </script>
 </body>
 </html>
