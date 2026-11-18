@@ -66,6 +66,19 @@ nav button.on{color:#fff;box-shadow:inset 0 4px 0 var(--blu)}
 .wn.ok{background:#0f2a1f;border-color:var(--grn);color:#c9f7e0}.wn.w{background:#3a3000;border-color:var(--yel);color:#fff3b0}.wn.x{background:#4a0d0d;border-color:var(--red);color:#ffd6d6}
 .rb{display:grid;gap:10px;margin-top:10px}.rb button{min-height:72px;border-radius:16px;border:2px solid var(--blu);background:transparent;font-weight:800;font-size:20px;padding:0 12px}
 .rb .n{background:var(--blu);color:#06090d}.rb .u,.rb .z{min-height:56px;font-size:17px;border-color:var(--line)}
+.rc{border:3px solid var(--blu);background:#0f1c33;border-radius:18px;padding:14px;margin-bottom:16px}
+.rc .rt{font-size:20px;font-weight:800;line-height:1.3}
+.rc .rs{margin-top:8px;font-size:18px;font-weight:700;line-height:1.35}
+.rc .rs.g{color:var(--grn)}.rc .rs.y{color:var(--yel)}.rc .rs.r{color:#ff9a9a}
+.rc button{width:100%;min-height:64px;border-radius:14px;border:2px solid var(--line);background:var(--in);font-weight:800;font-size:19px;margin-top:10px;padding:0 12px}
+.rc button.p{background:var(--grn);border-color:var(--grn);color:#06090d}
+#md{position:fixed;inset:0;z-index:150;background:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto}
+#md[hidden]{display:none}
+.mc{background:var(--card);border:3px solid var(--blu);border-radius:20px;padding:18px;max-width:480px;width:100%}
+#mt{font-size:21px;line-height:1.4}#mt p{margin:0 0 10px}
+.mc button{width:100%;min-height:68px;border-radius:16px;border:2px solid var(--line);background:var(--in);font-weight:800;font-size:20px;margin-top:10px;padding:0 12px}
+.mc button.p{background:var(--blu);border-color:var(--blu);color:#06090d}
+@media print{#md,#rc{display:none!important}}
 .pp{margin:12px 0;border-radius:10px;overflow-x:auto;background:#f7f5ee}
 .pp svg{display:block;width:100%;height:auto}.pp.z svg{width:200%}
 .pen{font-family:"Segoe Script","Bradley Hand","Comic Sans MS",cursive;fill:#1b2f7a;font-size:12px}
@@ -94,6 +107,12 @@ nav button.on{color:#fff;box-shadow:inset 0 4px 0 var(--blu)}
 <div class="app">
 <main id="t1" class="tab on">
 <h1>Ficha diária</h1>
+<div class="rc" id="rc" hidden role="status">
+<div class="rt" id="rct"></div>
+<div class="rs" id="rcs"></div>
+<button class="p" id="rcy">✅ Confirmar fim do repouso agora</button>
+<button id="rcn">Cancelar / Ignorar</button>
+</div>
 
 <div class="f"><label for="dt">Data</label><input id="dt" type="date"></div>
 
@@ -143,7 +162,7 @@ nav button.on{color:#fff;box-shadow:inset 0 4px 0 var(--blu)}
 <div class="f" style="margin-top:16px"><label for="ds">Início do repouso diário (opcional)</label>
 <div class="r"><input id="ds" type="datetime-local"><button class="b" id="dsn">Agora</button></div>
 <div class="box" id="dcalc" hidden></div></div>
-<div class="rb"><button class="u" id="du">↩ Desfazer último registo</button><button class="z" id="dz">Repor semana (0/0)</button></div>
+<div class="rb"><button class="u" id="dcl">✕ Limpar início do repouso em curso</button><button class="u" id="du">↩ Desfazer último registo</button><button class="z" id="dz">Repor semana (0/0)</button></div>
 <div class="tip">No máximo 3 repousos diários reduzidos (9h) entre dois repousos semanais. O repouso fracionado (3h + 9h) conta como normal. Repõe a semana depois do descanso semanal. Ferramenta de apoio: confirma sempre com o tacógrafo e com a empresa.</div>
 <h2>Pausa Semanal (24h / 45h)</h2>
 <div class="f"><label for="rs">Início do descanso</label>
@@ -211,6 +230,7 @@ nav button.on{color:#fff;box-shadow:inset 0 4px 0 var(--blu)}
 <button data-t="t2"><span>📋</span>Ajuda Ticket Manual</button>
 </nav>
 
+<div id="md" hidden><div class="mc" role="dialog" aria-modal="true"><div id="mt"></div><div id="mb"></div></div></div>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const T0=["portugal","reino unido","irlanda","islândia","espanha - cn"],T2=["grécia","finlândia","roménia","bulgária","lituânia","letónia","estónia","chipre","moldávia"];
@@ -286,13 +306,14 @@ function hist(){
 }
 function clear(){["pi","ki","hi","pf","kf","hf","ob","ni","nf"].forEach(i=>$("#"+i).value="");$("#dt").value=today();$("#hpi").textContent="";$("#hpf").textContent="";pre();calc()}
 $("#save").onclick=()=>{
-  const r=calc();
+  const r=calc();const hfv=$("#hf").value,dtv=$("#dt").value||today(),hiv=$("#hi").value;
   H.unshift({dt:$("#dt").value||today(),pi:$("#pi").value.trim(),ki:$("#ki").value,hi:$("#hi").value,hf:$("#hf").value,pf:$("#pf").value.trim(),ni:$("#ni").value.trim(),nf:$("#nf").value.trim(),kf:$("#kf").value,km:r.km,amp:$("#hf").value?r.amp:null,ob:$("#ob").value.trim()});
   H.sort((a,b)=>b.dt.localeCompare(a.dt));persist();hist();
   let u={};try{u=JSON.parse(localStorage.getItem("ultimo")||"{}")}catch(e){}
   if($("#kf").value)u.kf=$("#kf").value;if($("#pf").value.trim())u.pf=$("#pf").value.trim();
   try{localStorage.setItem("ultimo",JSON.stringify(u))}catch(e){}
   clear();
+  if(hfv)askRest(hfv,endStamp(dtv,hiv,hfv));
 };
 $("#clr").onclick=clear;
 $("#exp").onclick=()=>{
@@ -417,6 +438,7 @@ $$('[data-ex]').forEach(b=>b.onclick=()=>{$$('[data-ex]').forEach(x=>x.classList
 $('#pp').onclick=function(){this.classList.toggle('z')};
 draw(0);
 
+let ign=false;
 let D={log:[],s:""};
 try{const x=JSON.parse(localStorage.getItem("repDiario")||"{}");if(Array.isArray(x.log))D.log=x.log.filter(c=>c==="n"||c==="r");if(typeof x.s==="string")D.s=x.s}catch(e){}
 const dsave=()=>{try{localStorage.setItem("repDiario",JSON.stringify(D))}catch(e){}};
@@ -430,6 +452,7 @@ function daily(){
   const ds=$("#ds").value,bx=$("#dcalc");
   if(!ds){bx.hidden=true}
   else{const t=new Date(ds);bx.hidden=false;bx.innerHTML="Repouso reduzido <b>9h</b> completa: <b>"+dl(new Date(+t+9*36e5))+"</b><br>Repouso normal <b>11h</b> completa: <b>"+dl(new Date(+t+11*36e5))+"</b>"}
+  renderRestCard();
 }
 function dreg(k){
   const had=!!$("#ds").value;
@@ -444,6 +467,56 @@ $("#dz").onclick=function(){
   this.dataset.c=1;this.textContent="Toca para confirmar";setTimeout(()=>{this.dataset.c="";this.textContent="Repor semana (0/0)"},3000)};
 $("#dsn").onclick=()=>{$("#ds").value=nowL();D.s=$("#ds").value;dsave();daily()};
 $("#ds").addEventListener("input",()=>{D.s=$("#ds").value;dsave();daily()});
+const p2=n=>String(n).padStart(2,"0");
+const fm=m=>Math.floor(m/60)+"h"+p2(m%60);
+const fs2=t=>fd(t.slice(0,10))+" "+t.slice(11,16);
+function addDay(d){const t=new Date(d+"T12:00");t.setDate(t.getDate()+1);return t.getFullYear()+"-"+p2(t.getMonth()+1)+"-"+p2(t.getDate())}
+function endStamp(dt,hi,hf){return (hi&&hf&&hf<hi?addDay(dt):dt)+"T"+hf}
+function restMins(){const t=new Date(D.s);return isNaN(t)?null:Math.max(0,Math.floor((Date.now()-t)/6e4))}
+function ask(html,btns){
+  $("#mt").innerHTML=html;const mb=$("#mb");mb.innerHTML="";
+  btns.forEach(b=>{const e=document.createElement("button");e.type="button";e.textContent=b.t;if(b.p)e.className="p";e.onclick=()=>{$("#md").hidden=true;if(b.f)b.f()};mb.appendChild(e)});
+  $("#md").hidden=false;mb.firstChild.focus();
+}
+function askRest(hf,stamp){
+  const ja=D.s?"<p>Já tens um repouso em curso desde <b>"+fs2(D.s)+"</b>. Se iniciares outro, este é substituído.</p>":"";
+  ask("<p>Turno terminado às <b>"+esc(hf)+"</b>. Queres iniciar o registo do teu repouso diário a partir desta hora?</p>"+ja,
+    [{t:"🛏️ Iniciar Repouso ("+hf+")",p:1,f:()=>{D.s=stamp;dsave();$("#ds").value=stamp;ign=false;daily()}},{t:"Agora não"}]);
+}
+function renderRestCard(scr){
+  const c=$("#rc"),m=D.s&&!ign?restMins():null;
+  if(m===null){c.hidden=true;return}
+  c.hidden=false;
+  $("#rct").textContent="🛏️ Repouso em curso desde "+fs2(D.s)+" — Duração até agora: "+fm(m)+".";
+  const Y=D.log.filter(k=>k==="r").length,st=$("#rcs");
+  if(m>=660){st.className="rs g";st.textContent="✅ Já atingiste as 11h: conta como repouso Normal."}
+  else if(m>=540){
+    st.className="rs "+(Y>=3?"r":"y");
+    st.textContent="✅ Já atingiste as 9h: conta como repouso Reduzido. Faltam "+fm(660-m)+" para as 11h (Normal)."+(Y>=3?" ⚠️ Já tens 3/3 reduzidos: se terminares agora, passas o limite.":"")
+  }else{st.className="rs y";st.textContent="Ainda faltam "+fm(540-m)+" para as 9h (Reduzido) e "+fm(660-m)+" para as 11h (Normal)."}
+  if(scr)window.scrollTo({top:0,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
+}
+function closeRest(k,m){
+  if(k)D.log.push(k);
+  D.s="";$("#ds").value="";dsave();ign=false;
+  const h=nowHM();$("#hi").value=h;calc();daily();
+  const Y=D.log.filter(x=>x==="r").length;let t;
+  if(k==="n")t="✅ Repouso normal (11h) registado. Duração: <b>"+fm(m)+"</b>.";
+  else if(k==="r")t="✅ Repouso reduzido (9h) registado. Duração: <b>"+fm(m)+"</b>."+(Y===3?"<br>⚠️ Limite atingido (3/3): O próximo repouso TEM DE SER de 11h (ou fracionado 3h+9h)!":Y>3?"<br>⚠️ Limite ultrapassado ("+Y+"/3): confirma com o tacógrafo e a empresa.":"<br>Reduzidas: "+Y+" / 3.");
+  else t="Repouso encerrado sem contar como repouso diário válido (duração: "+fm(m)+").";
+  ask("<p>"+t+"</p><p>Hora de início da nova ficha: <b>"+h+"</b>.</p>",[{t:"OK",p:1}]);
+}
+$("#rcy").onclick=()=>{
+  const m=restMins();if(m===null)return;
+  if(m<540){
+    ask("<p>O repouso ficou <b>incompleto</b>: "+fm(m)+" (menos de 9h).</p><p>Queres mesmo encerrar sem contar como repouso diário válido?</p>",
+      [{t:"Encerrar sem contar",p:1,f:()=>closeRest(null,m)},{t:"Voltar (continuar repouso)"}]);return}
+  closeRest(m>=660?"n":"r",m);
+};
+$("#rcn").onclick=()=>{ign=true;renderRestCard()};
+$("#dcl").onclick=()=>{D.s="";$("#ds").value="";dsave();daily();$("#dm").textContent="Início do repouso em curso limpo."};
+document.querySelector("[data-n=hi]").addEventListener("click",()=>{ign=false;renderRestCard(true)});
+setInterval(renderRestCard,30000);
 $("#ds").value=D.s;daily();
 
 $("#dt").value=today();hist();pre();calc();setInterval(calc,30000);
