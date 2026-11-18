@@ -22,7 +22,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px soli
 .tab{display:none}.tab.on{display:block}
 .f{margin-bottom:16px}
 label{display:block;font-weight:700;margin-bottom:6px}
-.r{display:flex;gap:8px}
+.r{display:flex;gap:8px}.r input{min-width:0;flex:1 1 auto}
 input,textarea{width:100%;min-height:60px;background:var(--in);border:2px solid var(--line);border-radius:14px;padding:10px 14px;font-size:22px}
 textarea{min-height:110px;font-size:19px}
 .b{flex:0 0 auto;min-width:108px;min-height:60px;border-radius:14px;border:2px solid var(--blu);background:transparent;color:var(--blu);font-weight:800;font-size:17px;padding:0 12px}
@@ -60,6 +60,12 @@ nav button.on{color:#fff;box-shadow:inset 0 4px 0 var(--blu)}
 .tg{display:grid;gap:8px}.tg button{min-height:64px;border-radius:14px;border:2px solid var(--line);background:var(--in);font-weight:800;font-size:19px}
 .tg button.on{background:var(--blu);color:#06090d;border-color:var(--blu)}
 .big .v.s{font-size:26px;line-height:1.25}.big .m b{color:var(--txt)}
+.nl{font-size:15px;font-weight:600;color:var(--mut);margin:12px 0 0}
+.nt{min-height:48px;font-size:17px;padding:6px 12px;border-radius:12px;margin-top:6px}
+.wn{border-radius:14px;padding:12px 14px;font-size:20px;font-weight:700;line-height:1.3;border:3px solid;margin-top:10px}
+.wn.ok{background:#0f2a1f;border-color:var(--grn);color:#c9f7e0}.wn.w{background:#3a3000;border-color:var(--yel);color:#fff3b0}.wn.x{background:#4a0d0d;border-color:var(--red);color:#ffd6d6}
+.rb{display:grid;gap:10px;margin-top:10px}.rb button{min-height:72px;border-radius:16px;border:2px solid var(--blu);background:transparent;font-weight:800;font-size:20px;padding:0 12px}
+.rb .n{background:var(--blu);color:#06090d}.rb .u,.rb .z{min-height:56px;font-size:17px;border-color:var(--line)}
 .pp{margin:12px 0;border-radius:10px;overflow-x:auto;background:#f7f5ee}
 .pp svg{display:block;width:100%;height:auto}.pp.z svg{width:200%}
 .pen{font-family:"Segoe Script","Bradley Hand","Comic Sans MS",cursive;fill:#1b2f7a;font-size:12px}
@@ -92,7 +98,7 @@ nav button.on{color:#fff;box-shadow:inset 0 4px 0 var(--blu)}
 <div class="f"><label for="dt">Data</label><input id="dt" type="date"></div>
 
 <div class="f"><label for="pi">Local de início (País e ponto)</label>
-<div class="r"><input id="pi" type="text" placeholder="Ex.: Portugal (Área de serviço Torres Vedras)" autocomplete="off"><button class="b" data-g="pi">📍 Obter Local</button></div><div class="h" id="hpi"></div><div class="sc" data-for="pi"></div></div>
+<div class="r"><input id="pi" type="text" placeholder="Ex.: Portugal (Área de serviço Torres Vedras)" autocomplete="off"><button class="b" data-g="pi">📍 Obter Local</button></div><div class="h" id="hpi"></div><div class="sc" data-for="pi"></div><label class="nl" for="ni">Referência / nota do local de início</label><input class="nt" id="ni" type="text" placeholder="Ex.: Área de serviço, parque vigiado, cais 4..." autocomplete="off"></div>
 
 <div class="f"><label for="ki">KM inicial</label><input id="ki" type="number" inputmode="numeric" placeholder="377396"></div>
 
@@ -107,7 +113,7 @@ nav button.on{color:#fff;box-shadow:inset 0 4px 0 var(--blu)}
 <div class="r"><input id="hf" type="time"><button class="b" data-n="hf">Agora</button></div></div>
 
 <div class="f"><label for="pf">Local de fim (País e ponto)</label>
-<div class="r"><input id="pf" type="text" placeholder="Ex.: Espanha - PV (Andamur San Román)" autocomplete="off"><button class="b" data-g="pf">📍 Obter Local</button></div><div class="h" id="hpf"></div><div class="sc" data-for="pf"></div></div>
+<div class="r"><input id="pf" type="text" placeholder="Ex.: Espanha - PV (Andamur San Román)" autocomplete="off"><button class="b" data-g="pf">📍 Obter Local</button></div><div class="h" id="hpf"></div><div class="sc" data-for="pf"></div><label class="nl" for="nf">Referência / nota do local de fim</label><input class="nt" id="nf" type="text" placeholder="Ex.: Posto Galp, cliente X, dormida..." autocomplete="off"></div>
 
 <div class="f"><label for="kf">KM final</label><input id="kf" type="number" inputmode="numeric" placeholder="377988"></div>
 
@@ -128,7 +134,18 @@ nav button.on{color:#fff;box-shadow:inset 0 4px 0 var(--blu)}
 </main>
 
 <main id="t3" class="tab">
-<h1>Pausas 24h/45h</h1>
+<h1>Pausas e Repousos</h1>
+<h2>Repouso Diário (9h / 11h) da Semana</h2>
+<div class="big" id="dc"></div>
+<div class="wn" id="dw" role="status"></div>
+<div class="rb"><button class="n" id="dn">🛏️ +1 Repouso Normal (11h)</button><button id="dr">⏱️ +1 Repouso Reduzido (9h)</button></div>
+<div class="h" id="dm"></div>
+<div class="f" style="margin-top:16px"><label for="ds">Início do repouso diário (opcional)</label>
+<div class="r"><input id="ds" type="datetime-local"><button class="b" id="dsn">Agora</button></div>
+<div class="box" id="dcalc" hidden></div></div>
+<div class="rb"><button class="u" id="du">↩ Desfazer último registo</button><button class="z" id="dz">Repor semana (0/0)</button></div>
+<div class="tip">No máximo 3 repousos diários reduzidos (9h) entre dois repousos semanais. O repouso fracionado (3h + 9h) conta como normal. Repõe a semana depois do descanso semanal. Ferramenta de apoio: confirma sempre com o tacógrafo e com a empresa.</div>
+<h2>Pausa Semanal (24h / 45h)</h2>
 <div class="f"><label for="rs">Início do descanso</label>
 <div class="r"><input id="rs" type="datetime-local"><button class="b" id="rsn">Começar Agora</button></div></div>
 <div class="f"><label>Tipo planeado</label>
@@ -190,7 +207,7 @@ nav button.on{color:#fff;box-shadow:inset 0 4px 0 var(--blu)}
 </div>
 <nav>
 <button class="on" data-t="t1"><span>📝</span>Ficha diária</button>
-<button data-t="t3"><span>🛏️</span>Pausas 24h/45h</button>
+<button data-t="t3"><span>🛏️</span>Pausas e Repousos</button>
 <button data-t="t2"><span>📋</span>Ajuda Ticket Manual</button>
 </nav>
 
@@ -242,10 +259,13 @@ $$("[data-g]").forEach(b=>b.onclick=()=>{
       const j=await r.json(),ad=j.address||{};let v=ad.country||"";
       if((ad.country_code||"")==="es"){const sg=(ad["ISO3166-2-lvl4"]||"").split("-")[1];v="Espanha"+(sg?" - "+sg:"")}
       if(!v)throw 0;
-      const bd=ad.building&&ad.building!=="yes"?ad.building:"";
-      const loc=ad.village||ad.hamlet||ad.town||ad.city||ad.municipality||ad.suburb||ad.county||"";
-      const det=(ad.amenity||ad.shop||ad.tourism||ad.leisure||ad.industrial||ad.office||ad.craft||ad.man_made||ad.aeroway||bd||j.name||ad.road||loc||"").trim();
-      if(det)v+=" ("+det+")";
+      const nb=ad.building&&ad.building!=="yes"?ad.building:"";
+      const poi=ad.amenity||ad.shop||ad.tourism||ad.leisure||ad.industrial||ad.office||ad.craft||ad.man_made||ad.aeroway||nb||ad.highway||ad.road||j.name||"";
+      const parts=[ad.city||ad.town||ad.municipality,ad.suburb||ad.village||ad.town,ad.hamlet||ad.neighbourhood||ad.quarter,poi];
+      const nz=t=>t.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim();
+      const seen=new Set(),out=[];
+      parts.forEach(t=>{t=(t||"").trim();if(!t)return;const k=nz(t);if(seen.has(k))return;seen.add(k);out.push(t)});
+      if(out.length)v+=" ("+out.join(", ")+")";
       $("#"+id).value=v;h.textContent="Local detetado: "+v
     }catch(e){h.textContent="Sem internet ou serviço bloqueado. Coordenadas: "+la.toFixed(3)+", "+lo.toFixed(3)+". Escreve o país à mão."}
     b.disabled=false;b.textContent=lab;calc();
@@ -259,15 +279,15 @@ try{H=JSON.parse(localStorage.getItem("fichas")||"[]")}catch(e){}
 const persist=()=>{try{localStorage.setItem("fichas",JSON.stringify(H))}catch(e){}};
 const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 function hist(){
-  $("#hist").innerHTML=H.length?H.map((f,i)=>'<div class="hi"><b>'+fd(f.dt)+"</b><div>"+esc(f.pi||"?")+" → "+esc(f.pf||"?")+"</div><div>"+(f.hi||"--")+" → "+(f.hf||"--")+" · amplitude "+(f.amp!=null?dur(f.amp):"--")+'</div><div class="k">'+(f.km!=null?f.km+" km":"-- km")+"</div>"+(f.ob?"<div>"+esc(f.ob)+"</div>":"")+'<button data-d="'+i+'">Apagar</button></div>').join(""):'<div class="h">Ainda não há fichas guardadas.</div>';
+  $("#hist").innerHTML=H.length?H.map((f,i)=>'<div class="hi"><b>'+fd(f.dt)+"</b><div>"+esc(f.pi||"?")+" → "+esc(f.pf||"?")+"</div>"+(f.ni?"<div>Ref. início: "+esc(f.ni)+"</div>":"")+(f.nf?"<div>Ref. fim: "+esc(f.nf)+"</div>":"")+"<div>"+(f.hi||"--")+" → "+(f.hf||"--")+" · amplitude "+(f.amp!=null?dur(f.amp):"--")+'</div><div class="k">'+(f.km!=null?f.km+" km":"-- km")+"</div>"+(f.ob?"<div>"+esc(f.ob)+"</div>":"")+'<button data-d="'+i+'">Apagar</button></div>').join(""):'<div class="h">Ainda não há fichas guardadas.</div>';
   $$("[data-d]").forEach(b=>b.onclick=()=>{
     if(b.dataset.c){H.splice(+b.dataset.d,1);persist();hist();return}
     b.dataset.c=1;b.textContent="Toca para confirmar";setTimeout(()=>{b.dataset.c="";b.textContent="Apagar"},3000)});
 }
-function clear(){["pi","ki","hi","pf","kf","hf","ob"].forEach(i=>$("#"+i).value="");$("#dt").value=today();$("#hpi").textContent="";$("#hpf").textContent="";pre();calc()}
+function clear(){["pi","ki","hi","pf","kf","hf","ob","ni","nf"].forEach(i=>$("#"+i).value="");$("#dt").value=today();$("#hpi").textContent="";$("#hpf").textContent="";pre();calc()}
 $("#save").onclick=()=>{
   const r=calc();
-  H.unshift({dt:$("#dt").value||today(),pi:$("#pi").value.trim(),ki:$("#ki").value,hi:$("#hi").value,hf:$("#hf").value,pf:$("#pf").value.trim(),kf:$("#kf").value,km:r.km,amp:$("#hf").value?r.amp:null,ob:$("#ob").value.trim()});
+  H.unshift({dt:$("#dt").value||today(),pi:$("#pi").value.trim(),ki:$("#ki").value,hi:$("#hi").value,hf:$("#hf").value,pf:$("#pf").value.trim(),ni:$("#ni").value.trim(),nf:$("#nf").value.trim(),kf:$("#kf").value,km:r.km,amp:$("#hf").value?r.amp:null,ob:$("#ob").value.trim()});
   H.sort((a,b)=>b.dt.localeCompare(a.dt));persist();hist();
   let u={};try{u=JSON.parse(localStorage.getItem("ultimo")||"{}")}catch(e){}
   if($("#kf").value)u.kf=$("#kf").value;if($("#pf").value.trim())u.pf=$("#pf").value.trim();
@@ -277,14 +297,14 @@ $("#save").onclick=()=>{
 $("#clr").onclick=clear;
 $("#exp").onclick=()=>{
   const tot=H.reduce((s,f)=>s+(f.km>0?f.km:0),0);
-  $("#rep").value="RELATÓRIO DE FICHAS DIÁRIAS\nFichas: "+H.length+" · Total: "+tot+" km\n"+H.map(f=>"\n"+fd(f.dt)+"\nInício: "+(f.pi||"?")+" "+(f.hi||"--")+" (km "+(f.ki||"--")+")\nFim: "+(f.pf||"?")+" "+(f.hf||"--")+" (km "+(f.kf||"--")+")\nPercorridos: "+(f.km!=null?f.km+" km":"--")+" · Amplitude: "+(f.amp!=null?dur(f.amp):"--")+(f.ob?"\nObs.: "+f.ob:"")).join("\n");
+  $("#rep").value="RELATÓRIO DE FICHAS DIÁRIAS\nFichas: "+H.length+" · Total: "+tot+" km\n"+H.map(f=>"\n"+fd(f.dt)+"\nInício: "+(f.pi||"?")+" "+(f.hi||"--")+" (km "+(f.ki||"--")+")"+(f.ni?"\nRef. início: "+f.ni:"")+"\nFim: "+(f.pf||"?")+" "+(f.hf||"--")+" (km "+(f.kf||"--")+")"+(f.nf?"\nRef. fim: "+f.nf:"")+"\nPercorridos: "+(f.km!=null?f.km+" km":"--")+" · Amplitude: "+(f.amp!=null?dur(f.amp):"--")+(f.ob?"\nObs.: "+f.ob:"")).join("\n");
   $("#repw").hidden=false;$("#rep").scrollIntoView({block:"center"});
 };
 $("#cp").onclick=async()=>{const t=$("#rep");t.select();try{await navigator.clipboard.writeText(t.value)}catch(e){document.execCommand("copy")}$("#cp").textContent="Copiado ✓";setTimeout(()=>$("#cp").textContent="📋 Copiar Texto",2000)};
 const PCSS='body{font:14px system-ui,sans-serif;margin:16px}table{width:100%;border-collapse:collapse;font-size:12px}th,td{border:1px solid #999;padding:4px 6px;text-align:left;vertical-align:top}th{background:#eee}h1{font-size:20px}@page{size:A4 landscape;margin:12mm}';
 function pvHtml(){
   const n=new Set(H.map(f=>f.dt)).size,tot=H.reduce((s,f)=>s+(f.km>0?f.km:0),0),per=fd(H[H.length-1].dt)+' a '+fd(H[0].dt);
-  const rw=H.map(f=>`<tr><td>${fd(f.dt)}</td><td>${esc(f.pi||'')}</td><td>${esc(f.pf||'')}</td><td>${f.hi||''}</td><td>${f.hf||''}</td><td>${f.amp!=null?dur(f.amp):''}</td><td>${f.ki||''}</td><td>${f.kf||''}</td><td>${f.km!=null?f.km:''}</td><td>${esc(f.ob||'')}</td></tr>`).join('');
+  const rw=H.map(f=>`<tr><td>${fd(f.dt)}</td><td>${esc(f.pi||'')}${f.ni?'<br><small>Ref.: '+esc(f.ni)+'</small>':''}</td><td>${esc(f.pf||'')}${f.nf?'<br><small>Ref.: '+esc(f.nf)+'</small>':''}</td><td>${f.hi||''}</td><td>${f.hf||''}</td><td>${f.amp!=null?dur(f.amp):''}</td><td>${f.ki||''}</td><td>${f.kf||''}</td><td>${f.km!=null?f.km:''}</td><td>${esc(f.ob||'')}</td></tr>`).join('');
   return `<h1>Relatório Mensal de Jornada e Quilómetros</h1><p>Período: ${per} · Gerado em ${fd(today())}</p><p>Dias trabalhados: <b>${n}</b> · Total de KM percorridos: <b>${tot} km</b></p><table><tr><th>Data</th><th>País início</th><th>País fim</th><th>Hora início</th><th>Hora fim</th><th>Amplitude</th><th>KM inicial</th><th>KM final</th><th>KM percorridos</th><th>Observações</th></tr>${rw}</table>`;
 }
 async function saveF(fn,data,type){
@@ -299,7 +319,7 @@ $('#csv').onclick=()=>{
   const m=$('#xh');if(!H.length){m.textContent='Ainda não há fichas guardadas.';return}
   const Q=String.fromCharCode(34);
   const q=v=>{v=String(v==null?'':v);return(v.indexOf(Q)>=0||/[;\r\n]/.test(v))?Q+v.split(Q).join(Q+Q)+Q:v};
-  const rows=[['Data','País Início','País Fim','Hora Início','Hora Fim','Amplitude','KM Inicial','KM Final','KM Percorridos','Observações']].concat(H.map(f=>[fd(f.dt),f.pi,f.pf,f.hi,f.hf,f.amp!=null?dur(f.amp):'',f.ki,f.kf,f.km,f.ob]));
+  const rows=[['Data','País Início','Referência Início','País Fim','Referência Fim','Hora Início','Hora Fim','Amplitude','KM Inicial','KM Final','KM Percorridos','Observações']].concat(H.map(f=>[fd(f.dt),f.pi,f.ni,f.pf,f.nf,f.hi,f.hf,f.amp!=null?dur(f.amp):'',f.ki,f.kf,f.km,f.ob]));
   saveF('fichas_jornada_'+today()+'.csv','\uFEFF'+rows.map(r=>r.map(q).join(';')).join('\r\n'),'text/csv;charset=utf-8');
 };
 $('#pdf').onclick=()=>{
@@ -396,6 +416,35 @@ function draw(k){
 $$('[data-ex]').forEach(b=>b.onclick=()=>{$$('[data-ex]').forEach(x=>x.classList.toggle('on',x===b));draw(+b.dataset.ex)});
 $('#pp').onclick=function(){this.classList.toggle('z')};
 draw(0);
+
+let D={log:[],s:""};
+try{const x=JSON.parse(localStorage.getItem("repDiario")||"{}");if(Array.isArray(x.log))D.log=x.log.filter(c=>c==="n"||c==="r");if(typeof x.s==="string")D.s=x.s}catch(e){}
+const dsave=()=>{try{localStorage.setItem("repDiario",JSON.stringify(D))}catch(e){}};
+function daily(){
+  const X=D.log.filter(c=>c==="n").length,Y=D.log.filter(c=>c==="r").length;
+  const c=$("#dc");c.className="big "+(Y>=3?"x":Y===2?"w":"ok");
+  c.innerHTML='<div class="v s">Normais (11h): '+X+' · Reduzidas (9h): '+Y+' / 3</div>';
+  const w=$("#dw");
+  if(Y<3){const r=3-Y;w.className="wn "+(Y===2?"w":"ok");w.textContent="Podes fazer 9h ("+(r>1?"restam "+r+" reduções":"resta 1 redução")+") ou 11h."}
+  else{w.className="wn x";w.textContent="⚠️ Limite atingido (3/3): O próximo repouso TEM DE SER de 11h (ou fracionado 3h+9h)!"}
+  const ds=$("#ds").value,bx=$("#dcalc");
+  if(!ds){bx.hidden=true}
+  else{const t=new Date(ds);bx.hidden=false;bx.innerHTML="Repouso reduzido <b>9h</b> completa: <b>"+dl(new Date(+t+9*36e5))+"</b><br>Repouso normal <b>11h</b> completa: <b>"+dl(new Date(+t+11*36e5))+"</b>"}
+}
+function dreg(k){
+  const had=!!$("#ds").value;
+  D.log.push(k);D.s="";$("#ds").value="";dsave();daily();
+  $("#dm").textContent=(k==="n"?"Repouso normal (11h) registado.":"Repouso reduzido (9h) registado.")+(had?" O início do repouso foi limpo.":"");
+}
+$("#dn").onclick=()=>dreg("n");
+$("#dr").onclick=()=>dreg("r");
+$("#du").onclick=()=>{$("#dm").textContent=D.log.length?"Último registo desfeito.":"Não há registos para desfazer.";D.log.pop();dsave();daily()};
+$("#dz").onclick=function(){
+  if(this.dataset.c){D={log:[],s:""};$("#ds").value="";dsave();daily();this.dataset.c="";this.textContent="Repor semana (0/0)";$("#dm").textContent="Semana reposta: 0 normais e 0 reduzidos.";return}
+  this.dataset.c=1;this.textContent="Toca para confirmar";setTimeout(()=>{this.dataset.c="";this.textContent="Repor semana (0/0)"},3000)};
+$("#dsn").onclick=()=>{$("#ds").value=nowL();D.s=$("#ds").value;dsave();daily()};
+$("#ds").addEventListener("input",()=>{D.s=$("#ds").value;dsave();daily()});
+$("#ds").value=D.s;daily();
 
 $("#dt").value=today();hist();pre();calc();setInterval(calc,30000);
 </script>
