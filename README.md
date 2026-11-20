@@ -2,7 +2,7 @@
 
 > **Agenda inteligente de apoio ao tacógrafo, gestão de descansos e futura comunidade social em tempo real para motoristas profissionais.**
 
-🔗 **Aceder ao Aplicativo:** [https://github.io](https://github.io)
+🔗 **Aceder ao Aplicativo:** vanthrabit.github.io/copiloto
 
 ---
 
