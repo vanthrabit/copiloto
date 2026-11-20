@@ -100,141 +100,150 @@ nav button.on{color:#fff;box-shadow:inset 0 4px 0 var(--blu)}
 #splash img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 @media (prefers-reduced-motion:reduce){#splash{transition:none}}
 @media print{#splash{display:none!important}}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 6px}
+.br{font-weight:800;font-size:18px;color:var(--mut);letter-spacing:.3px}
+.lg{display:flex;gap:2px;background:var(--card);border:2px solid var(--line);border-radius:22px;padding:3px}
+.lg button{min-height:38px;min-width:56px;border:0;border-radius:18px;background:none;font-size:14px;font-weight:700;color:var(--mut);padding:0 8px;white-space:nowrap}
+.lg button.on{background:var(--blu);color:#06090d}
+nav button i{font-style:normal}
+.pf{margin:26px 0 0;font-size:13px;line-height:1.45;color:var(--mut);text-align:center}
 </style>
 </head>
 <body>
-<div id="splash" role="button" tabindex="0" aria-label="Entrar no Copiloto"><img src="capa.png" alt="Bem-vindo ao Copiloto"></div>
+<div id="splash" role="button" tabindex="0" data-ia="aria-label:splashAria" aria-label="Entrar no Copiloto"><img src="capa.png" data-ia="alt:splashAlt" alt="Bem-vindo ao Copiloto"></div>
 <div class="app">
+<header class="hd"><span class="br">Copiloto</span><div class="lg" role="group" data-ia="aria-label:langAria" aria-label="Idioma"><button type="button" data-l="pt">🇵🇹 PT</button><button type="button" data-l="en">🇬🇧 EN</button><button type="button" data-l="es">🇪🇸 ES</button></div></header>
 <main id="t1" class="tab on">
-<h1>Ficha diária</h1>
+<h1 data-i="tab1">Ficha diária</h1>
 <div class="rc" id="rc" hidden role="status">
 <div class="rt" id="rct"></div>
 <div class="rs" id="rcs"></div>
-<button class="p" id="rcw" hidden>📅 Confirmar como Pausa Semanal (24h/45h)</button>
+<button class="p" id="rcw" data-i="rcw" hidden>📅 Confirmar como Pausa Semanal (24h/45h)</button>
 <button class="p" id="rcy">✅ Confirmar fim do repouso agora</button>
-<button id="rcn">Cancelar / Ignorar</button>
+<button id="rcn" data-i="rcn">Cancelar / Ignorar</button>
 </div>
 
-<div class="f"><label for="dt">Data</label><input id="dt" type="date"></div>
+<div class="f"><label for="dt" data-i="lblDt">Data</label><input id="dt" type="date"></div>
 
-<div class="f"><label for="pi">Local de início (País e ponto)</label>
-<div class="r"><input id="pi" type="text" placeholder="Ex.: Portugal (Área de serviço Torres Vedras)" autocomplete="off"><button class="b" data-g="pi">📍 Obter Local</button></div><div class="h" id="hpi"></div><div class="sc" data-for="pi"></div><label class="nl" for="ni">Referência / nota do local de início</label><input class="nt" id="ni" type="text" placeholder="Ex.: Área de serviço, parque vigiado, cais 4..." autocomplete="off"></div>
+<div class="f"><label for="pi" data-i="lblPi">Local de início (País e ponto)</label>
+<div class="r"><input id="pi" type="text" data-ip="phPi" placeholder="Ex.: Portugal (Área de serviço Torres Vedras)" autocomplete="off"><button class="b" data-g="pi" data-i="getLoc">📍 Obter Local</button></div><div class="h" id="hpi"></div><div class="sc" data-for="pi"></div><label class="nl" for="ni" data-i="lblNi">Referência / nota do local de início</label><input class="nt" id="ni" type="text" data-ip="phNi" placeholder="Ex.: Área de serviço, parque vigiado, cais 4..." autocomplete="off"></div>
 
-<div class="f"><label for="ki">KM inicial</label><input id="ki" type="number" inputmode="numeric" placeholder="377396"></div>
+<div class="f"><label for="ki" data-i="lblKi">KM inicial</label><input id="ki" type="number" inputmode="numeric" placeholder="377396"></div>
 
-<div class="f"><label for="hi">Hora de início</label>
-<div class="r"><input id="hi" type="time"><button class="b" data-n="hi">Agora</button></div>
+<div class="f"><label for="hi" data-i="lblHi">Hora de início</label>
+<div class="r"><input id="hi" type="time"><button class="b" data-n="hi" data-i="now">Agora</button></div>
 <div class="box" id="prev" hidden></div></div>
 
-<div class="f"><label>Amplitude (automática)</label>
+<div class="f"><label data-i="lblAmp">Amplitude (automática)</label>
 <div class="big" id="amp"><div class="v">--</div><div class="m">Preenche a hora de início</div></div></div>
 
-<div class="f"><label for="hf">Hora final</label>
-<div class="r"><input id="hf" type="time"><button class="b" data-n="hf">Agora</button></div></div>
+<div class="f"><label for="hf" data-i="lblHf">Hora final</label>
+<div class="r"><input id="hf" type="time"><button class="b" data-n="hf" data-i="now">Agora</button></div></div>
 
-<div class="f"><label for="pf">Local de fim (País e ponto)</label>
-<div class="r"><input id="pf" type="text" placeholder="Ex.: Espanha - PV (Andamur San Román)" autocomplete="off"><button class="b" data-g="pf">📍 Obter Local</button></div><div class="h" id="hpf"></div><div class="sc" data-for="pf"></div><label class="nl" for="nf">Referência / nota do local de fim</label><input class="nt" id="nf" type="text" placeholder="Ex.: Posto Galp, cliente X, dormida..." autocomplete="off"></div>
+<div class="f"><label for="pf" data-i="lblPf">Local de fim (País e ponto)</label>
+<div class="r"><input id="pf" type="text" data-ip="phPf" placeholder="Ex.: Espanha - PV (Andamur San Román)" autocomplete="off"><button class="b" data-g="pf" data-i="getLoc">📍 Obter Local</button></div><div class="h" id="hpf"></div><div class="sc" data-for="pf"></div><label class="nl" for="nf" data-i="lblNf">Referência / nota do local de fim</label><input class="nt" id="nf" type="text" data-ip="phNf" placeholder="Ex.: Posto Galp, cliente X, dormida..." autocomplete="off"></div>
 
-<div class="f"><label for="kf">KM final</label><input id="kf" type="number" inputmode="numeric" placeholder="377988"></div>
+<div class="f"><label for="kf" data-i="lblKf">KM final</label><input id="kf" type="number" inputmode="numeric" placeholder="377988"></div>
 
-<div class="f"><label>KM percorridos</label>
+<div class="f"><label data-i="lblKm">KM percorridos</label>
 <div class="big" id="km"><div class="v">--</div><div class="m">KM final menos KM inicial</div></div></div>
 
-<div class="f"><label for="ob">Observações</label><textarea id="ob" placeholder="Cargas, descargas, ferry, incidentes..."></textarea></div>
+<div class="f"><label for="ob" data-i="lblOb">Observações</label><textarea id="ob" data-ip="phOb" placeholder="Cargas, descargas, ferry, incidentes..."></textarea></div>
 
-<div class="act"><button class="sv" id="save">💾 Guardar ficha</button><button class="cl" id="clr">Limpar</button></div>
+<div class="act"><button class="sv" id="save" data-i="save">💾 Guardar ficha</button><button class="cl" id="clr" data-i="clr">Limpar</button></div>
 
-<h2>Histórico</h2>
+<h2 data-i="hHist">Histórico</h2>
 <div id="hist"></div>
-<button class="ex" id="exp">📄 Exportar relatório</button>
+<button class="ex" id="exp" data-i="exp">📄 Exportar relatório</button>
 <div id="repw" hidden>
 <textarea id="rep" readonly></textarea>
-<div class='xb'><button class='sv' id='cp'>📋 Copiar Texto</button><button class='cl' id='pdf'>📄 Guardar / Imprimir PDF</button><button class='cl' id='csv'>📊 Exportar Excel (CSV)</button><button class='cl' id='sh'>📲 Partilhar (WhatsApp / E-mail)</button></div><div class='h' id='xh'></div>
+<div class="xb"><button class="sv" id="cp" data-i="cp">📋 Copiar Texto</button><button class="cl" id="pdf" data-i="pdf">📄 Guardar / Imprimir PDF</button><button class="cl" id="csv" data-i="csv">📊 Exportar Excel (CSV)</button><button class="cl" id="sh" data-i="sh">📲 Partilhar (WhatsApp / E-mail)</button></div><div class="h" id="xh"></div>
 </div>
 </main>
 
 <main id="t3" class="tab">
-<h1>Pausas e Repousos</h1>
-<h2>Repouso Diário (9h / 11h) da Semana</h2>
+<h1 data-i="tab3">Pausas e Repousos</h1>
+<h2 data-i="h2D">Repouso Diário (9h / 11h) da Semana</h2>
 <div class="big" id="dc"></div>
 <div class="wn" id="dw" role="status"></div>
-<div class="rb"><button class="n" id="dn">🛏️ +1 Repouso Normal (11h)</button><button id="dr">⏱️ +1 Repouso Reduzido (9h)</button></div>
+<div class="rb"><button class="n" id="dn" data-i="dn">🛏️ +1 Repouso Normal (11h)</button><button id="dr" data-i="dr">⏱️ +1 Repouso Reduzido (9h)</button></div>
 <div class="h" id="dm"></div>
-<div class="f" style="margin-top:16px"><label for="ds">Início do repouso diário (opcional)</label>
-<div class="r"><input id="ds" type="datetime-local"><button class="b" id="dsn">Agora</button></div>
+<div class="f" style="margin-top:16px"><label for="ds" data-i="lblDs">Início do repouso diário (opcional)</label>
+<div class="r"><input id="ds" type="datetime-local"><button class="b" id="dsn" data-i="now">Agora</button></div>
 <div class="box" id="dcalc" hidden></div><div class="h" id="dzl"></div></div>
-<div class="rb"><button class="u" id="dcl">✕ Limpar início do repouso em curso</button><button class="u" id="du">↩ Desfazer último registo</button><button class="z" id="dz">Repor semana (0/0)</button></div>
-<div class="tip">No máximo 3 repousos diários reduzidos (9h) entre dois repousos semanais. O repouso fracionado (3h + 9h) conta como normal. Repõe a semana depois do descanso semanal. Ferramenta de apoio: confirma sempre com o tacógrafo e com a empresa.</div>
-<h2>Pausa Semanal (24h / 45h)</h2>
-<div class="f"><label for="rs">Início do descanso</label>
-<div class="r"><input id="rs" type="datetime-local"><button class="b" id="rsn">Começar Agora</button></div></div>
-<div class="f"><label>Tipo planeado</label>
-<div class="tg"><button data-ty="24">Pausa Reduzida (24h)</button><button data-ty="45">Pausa Normal (45h ou mais)</button></div></div>
-<div class="f"><label>Fim da pausa</label><div class="big" id="rfim"></div></div>
-<div class="f"><label for="rr">Hora real de arranque (opcional)</label>
-<div class="r"><input id="rr" type="datetime-local"><button class="b" id="rrn">Arrancar Agora</button></div>
-<div class="h">Se a empresa te mandar ficar em casa 60h ou 120h, regista aqui quando arrancaste.</div></div>
-<div class="f"><label>Resultado</label><div class="big" id="rres"></div></div>
-<div class="f"><label>Próximo descanso obrigatório</label><div class="big" id="rnext"></div></div>
-<button class="ex" id="rclr">Limpar pausa</button>
-<div class="tip">Ferramenta de apoio. O prazo da compensação conta a partir da semana (segunda a domingo) em que a pausa começou. Confirma sempre com a tua empresa e com o tacógrafo.</div>
+<div class="rb"><button class="u" id="dcl" data-i="dcl">✕ Limpar início do repouso em curso</button><button class="u" id="du" data-i="du">↩ Desfazer último registo</button><button class="z" id="dz" data-i="dz">Repor semana (0/0)</button></div>
+<div class="tip" data-i="tipD">No máximo 3 repousos diários reduzidos (9h) entre dois repousos semanais. O repouso fracionado (3h + 9h) conta como normal. Repõe a semana depois do descanso semanal. Ferramenta de apoio: confirma sempre com o tacógrafo e com a empresa.</div>
+<h2 data-i="h2W">Pausa Semanal (24h / 45h)</h2>
+<div class="f"><label for="rs" data-i="lblRs">Início do descanso</label>
+<div class="r"><input id="rs" type="datetime-local"><button class="b" id="rsn" data-i="rsn">Começar Agora</button></div></div>
+<div class="f"><label data-i="lblTy">Tipo planeado</label>
+<div class="tg"><button data-ty="24" data-i="ty24">Pausa Reduzida (24h)</button><button data-ty="45" data-i="ty45">Pausa Normal (45h ou mais)</button></div></div>
+<div class="f"><label data-i="lblRf">Fim da pausa</label><div class="big" id="rfim"></div></div>
+<div class="f"><label for="rr" data-i="lblRr">Hora real de arranque (opcional)</label>
+<div class="r"><input id="rr" type="datetime-local"><button class="b" id="rrn" data-i="rrn">Arrancar Agora</button></div>
+<div class="h" data-i="hRr">Se a empresa te mandar ficar em casa 60h ou 120h, regista aqui quando arrancaste.</div></div>
+<div class="f"><label data-i="lblRes">Resultado</label><div class="big" id="rres"></div></div>
+<div class="f"><label data-i="lblNext">Próximo descanso obrigatório</label><div class="big" id="rnext"></div></div>
+<button class="ex" id="rclr" data-i="rclr">Limpar pausa</button>
+<div class="tip" data-i="tipW">Ferramenta de apoio. O prazo da compensação conta a partir da semana (segunda a domingo) em que a pausa começou. Confirma sempre com a tua empresa e com o tacógrafo.</div>
 </main>
 
 <main id="t2" class="tab">
-<h1>Ajuda Ticket Manual</h1>
-<h2>Como preencher o verso</h2>
-<div class='tg' id='exb'><button data-ex='0' class='on'>Exemplo 1: Dia Completo (como no curso CAM)</button><button data-ex='1'>Exemplo 2: Fim de Semana / Folga</button><button data-ex='2'>Exemplo 3: Esqueceu Cartão / Início Tarde</button></div>
-<div class='pp' id='pp'><svg id='tk' viewBox='0 0 360 446' role='img' aria-label='Esquema do verso do ticket do tacógrafo com a linha azul do exemplo escolhido'></svg></div>
-<div class='box' id='exs'></div>
-<div class='h'>Toca no desenho para ampliar ou reduzir.</div>
-<details open><summary>Legenda: passo a passo</summary>
+<h1 data-i="tab2">Ajuda Ticket Manual</h1>
+<h2 data-i="hHow">Como preencher o verso</h2>
+<div class="tg" id="exb"><button data-ex="0" class="on" data-i="ex0">Exemplo 1: Dia Completo (como no curso CAM)</button><button data-ex="1" data-i="ex1">Exemplo 2: Fim de Semana / Folga</button><button data-ex="2" data-i="ex2">Exemplo 3: Esqueceu Cartão / Início Tarde</button></div>
+<div class="pp" id="pp"><svg id="tk" viewBox="0 0 360 446" role="img" data-ia="aria-label:tkAria" aria-label="Esquema do verso do ticket do tacógrafo com a linha azul do exemplo escolhido"></svg></div>
+<div class="box" id="exs"></div>
+<div class="h" data-i="hTouch">Toca no desenho para ampliar ou reduzir.</div>
+<details open><summary data-i="sum1">Legenda: passo a passo</summary>
 <ol>
-<li><b>Nome</b>Escreve o nome completo, com letra legível.</li>
-<li><b>Cartão N.º e Matrícula</b>Número do cartão de condutor e matrícula do veículo que conduziste.</li>
-<li><b>Local de início (From) e de fim (To)</b>Onde começou e onde acabou o dia: cidade e país.</li>
-<li><b>Data e assinatura</b>Data do dia a que o registo se refere e a tua assinatura.</li>
-<li><b>Km início, fim e total</b>Copia os km do conta-quilómetros. Total = km fim menos km início.</li>
-<li><b>As duas grelhas</b>A de cima vai das 0h às 12h. A de baixo vai das 12h às 24h. Cada coluna é uma hora, e os traços finos são os quartos de hora.</li>
-<li><b>Os símbolos, de cima para baixo</b>Volante (condução), martelos (outros trabalhos), quadrado cortado (disponibilidade) e cama (repouso). Estão iguais dos dois lados.</li>
-<li><b>Traça a linha</b>Usa caneta azul ou preta. Começa à esquerda, na linha do símbolo da atividade, e vai até à hora em que ela acaba.</li>
-<li><b>Quando mudas de atividade</b>Sobe ou desce na vertical, na hora exata, até à linha do novo símbolo e continua em frente.</li>
-<li><b>Passagem das 12h</b>Termina a linha no fim da grelha de cima e retoma-a no início da grelha de baixo, na mesma atividade.</li>
-<li><b>Sem falhas</b>Procura não deixar horas por preencher entre o início e o fim do período que estás a registar.</li>
-<li><b>Revê antes de guardar</b>Confere as horas, os km e a assinatura. Evita rasuras e guarda o ticket no camião.</li>
+<li data-ih="l1"><b>Nome</b>Escreve o nome completo, com letra legível.</li>
+<li data-ih="l2"><b>Cartão N.º e Matrícula</b>Número do cartão de condutor e matrícula do veículo que conduziste.</li>
+<li data-ih="l3"><b>Local de início (From) e de fim (To)</b>Onde começou e onde acabou o dia: cidade e país.</li>
+<li data-ih="l4"><b>Data e assinatura</b>Data do dia a que o registo se refere e a tua assinatura.</li>
+<li data-ih="l5"><b>Km início, fim e total</b>Copia os km do conta-quilómetros. Total = km fim menos km início.</li>
+<li data-ih="l6"><b>As duas grelhas</b>A de cima vai das 0h às 12h. A de baixo vai das 12h às 24h. Cada coluna é uma hora, e os traços finos são os quartos de hora.</li>
+<li data-ih="l7"><b>Os símbolos, de cima para baixo</b>Volante (condução), martelos (outros trabalhos), quadrado cortado (disponibilidade) e cama (repouso). Estão iguais dos dois lados.</li>
+<li data-ih="l8"><b>Traça a linha</b>Usa caneta azul ou preta. Começa à esquerda, na linha do símbolo da atividade, e vai até à hora em que ela acaba.</li>
+<li data-ih="l9"><b>Quando mudas de atividade</b>Sobe ou desce na vertical, na hora exata, até à linha do novo símbolo e continua em frente.</li>
+<li data-ih="l10"><b>Passagem das 12h</b>Termina a linha no fim da grelha de cima e retoma-a no início da grelha de baixo, na mesma atividade.</li>
+<li data-ih="l11"><b>Sem falhas</b>Procura não deixar horas por preencher entre o início e o fim do período que estás a registar.</li>
+<li data-ih="l12"><b>Revê antes de guardar</b>Confere as horas, os km e a assinatura. Evita rasuras e guarda o ticket no camião.</li>
 </ol></details>
-<div class='tip'>Este desenho é só um esquema ilustrativo. O verso real varia conforme o fabricante e o país. Confirma com a empresa o modelo a usar e se as horas se escrevem em hora local ou em UTC.</div>
-<div class="tip">Toca num passo para o marcar como feito.</div>
-<details open><summary>1. Entrada manual ao inserir o cartão</summary>
+<div class="tip" data-i="tipSchem">Este desenho é só um esquema ilustrativo. O verso real varia conforme o fabricante e o país. Confirma com a empresa o modelo a usar e se as horas se escrevem em hora local ou em UTC.</div>
+<div class="tip" data-i="tipTap">Toca num passo para o marcar como feito.</div>
+<details open><summary data-i="sum2">1. Entrada manual ao inserir o cartão</summary>
 <ol>
-<li><b>Insere o cartão de condutor</b>Na ranhura certa (ranhura 1 se és o condutor principal).</li>
-<li><b>Aceita a entrada manual</b>Quando o tacógrafo perguntar se queres introduzir atividades, escolhe «Sim».</li>
-<li><b>Confirma a última retirada do cartão</b>Verifica a data e a hora da última vez que tiraste o cartão.</li>
-<li><b>Introduz as atividades em falta</b>Volante (condução), martelo (outro trabalho), cama (repouso) ou disponibilidade.</li>
-<li><b>Confirma o local de início</b>Indica o país onde começa o dia de trabalho.</li>
-<li><b>Revê e confirma</b>Confere horas e atividades. Depois de confirmar, já não alteras.</li>
+<li data-ih="m1"><b>Insere o cartão de condutor</b>Na ranhura certa (ranhura 1 se és o condutor principal).</li>
+<li data-ih="m2"><b>Aceita a entrada manual</b>Quando o tacógrafo perguntar se queres introduzir atividades, escolhe «Sim».</li>
+<li data-ih="m3"><b>Confirma a última retirada do cartão</b>Verifica a data e a hora da última vez que tiraste o cartão.</li>
+<li data-ih="m4"><b>Introduz as atividades em falta</b>Volante (condução), martelo (outro trabalho), cama (repouso) ou disponibilidade.</li>
+<li data-ih="m5"><b>Confirma o local de início</b>Indica o país onde começa o dia de trabalho.</li>
+<li data-ih="m6"><b>Revê e confirma</b>Confere horas e atividades. Depois de confirmar, já não alteras.</li>
 </ol></details>
-<details><summary>2. Tacógrafo avariado ou sem registo</summary>
+<details><summary data-i="sum3">2. Tacógrafo avariado ou sem registo</summary>
 <ol>
-<li><b>Imprime o ticket</b>No início e no fim da viagem, se o equipamento ainda imprimir.</li>
-<li><b>Escreve os teus dados</b>Nome, número do cartão de condutor ou da carta, e assinatura.</li>
-<li><b>Anota as atividades à mão</b>Hora de início e fim de cada período: condução, outro trabalho, pausa e repouso.</li>
-<li><b>Anota os locais</b>Local de início e de fim de cada período, sempre que possível.</li>
-<li><b>Guarda no camião</b>Leva o dia atual e os 28 dias anteriores para uma fiscalização.</li>
-<li><b>Avisa a empresa</b>Comunica a avaria e agenda a reparação numa oficina autorizada.</li>
+<li data-ih="b1"><b>Imprime o ticket</b>No início e no fim da viagem, se o equipamento ainda imprimir.</li>
+<li data-ih="b2"><b>Escreve os teus dados</b>Nome, número do cartão de condutor ou da carta, e assinatura.</li>
+<li data-ih="b3"><b>Anota as atividades à mão</b>Hora de início e fim de cada período: condução, outro trabalho, pausa e repouso.</li>
+<li data-ih="b4"><b>Anota os locais</b>Local de início e de fim de cada período, sempre que possível.</li>
+<li data-ih="b5"><b>Guarda no camião</b>Leva o dia atual e os 28 dias anteriores para uma fiscalização.</li>
+<li data-ih="b6"><b>Avisa a empresa</b>Comunica a avaria e agenda a reparação numa oficina autorizada.</li>
 </ol></details>
-<div class="tip">Os menus mudam conforme a marca e o modelo do tacógrafo. Em caso de dúvida, consulta o manual do equipamento ou a empresa.</div>
+<div class="tip" data-i="tipMenus">Os menus mudam conforme a marca e o modelo do tacógrafo. Em caso de dúvida, consulta o manual do equipamento ou a empresa.</div>
 </main>
+<p class="pf" data-i="priv">🔒 Privacidade: Todos os teus registos ficam guardados exclusivamente na memória do teu telemóvel. Não recolhemos nem vendemos dados pessoais.</p>
 </div>
 <nav>
-<button class="on" data-t="t1"><span>📝</span>Ficha diária</button>
-<button data-t="t3"><span>🛏️</span>Pausas e Repousos</button>
-<button data-t="t2"><span>📋</span>Ajuda Ticket Manual</button>
+<button class="on" data-t="t1"><span>📝</span><i data-i="tab1">Ficha diária</i></button>
+<button data-t="t3"><span>🛏️</span><i data-i="tab3">Pausas e Repousos</i></button>
+<button data-t="t2"><span>📋</span><i data-i="tab2">Ajuda Ticket Manual</i></button>
 </nav>
 
 <div id="md" hidden><div class="mc" role="dialog" aria-modal="true"><div id="mt"></div><div id="mb"></div></div></div>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const T0=["portugal","reino unido","irlanda","islândia","espanha - cn"],T2=["grécia","finlândia","roménia","bulgária","lituânia","letónia","estónia","chipre","moldávia"];
+const T0=["portugal","reino unido","irlanda","islândia","espanha - cn","united kingdom","ireland","iceland","islandia","spain - cn","españa - cn"],T2=["grécia","finlândia","roménia","bulgária","lituânia","letónia","estónia","chipre","moldávia","greece","grecia","finland","finlandia","romania","rumania","rumanía","bulgaria","lithuania","lituania","latvia","letonia","estonia","cyprus","moldova"];
 const tz=v=>{v=v.trim().toLowerCase();if(!v)return null;return T0.some(x=>v.startsWith(x))?0:T2.some(x=>v.startsWith(x))?2:1};
 const tm=v=>{const[a,b]=v.split(":").map(Number);return a*60+b};
 const hm=m=>{m=((Math.round(m)%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0")};
@@ -244,41 +253,71 @@ const today=()=>new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOStr
 const fd=d=>d.split("-").reverse().join("/");
 const zl=z=>"UTC"+(z>=0?"+":"")+z;
 
+const I18N={"pt":{"splashAria":"Entrar no Copiloto","splashAlt":"Bem-vindo ao Copiloto","langAria":"Idioma","tab1":"Ficha diária","tab3":"Pausas e Repousos","tab2":"Ajuda Ticket Manual","rcw":"📅 Confirmar como Pausa Semanal (24h/45h)","rcn":"Cancelar / Ignorar","rcy":"✅ Confirmar fim do repouso agora","rcyN":"🛏️ Confirmar como Repouso Diário Normal (11h)","lblDt":"Data","lblPi":"Local de início (País e ponto)","phPi":"Ex.: Portugal (Área de serviço Torres Vedras)","getLoc":"📍 Obter Local","lblNi":"Referência / nota do local de início","phNi":"Ex.: Área de serviço, parque vigiado, cais 4...","lblKi":"KM inicial","lblHi":"Hora de início","now":"Agora","lblAmp":"Amplitude (automática)","lblHf":"Hora final","lblPf":"Local de fim (País e ponto)","phPf":"Ex.: Espanha - PV (Andamur San Román)","lblNf":"Referência / nota do local de fim","phNf":"Ex.: Posto Galp, cliente X, dormida...","lblKf":"KM final","lblKm":"KM percorridos","lblOb":"Observações","phOb":"Cargas, descargas, ferry, incidentes...","save":"💾 Guardar ficha","clr":"Limpar","hHist":"Histórico","exp":"📄 Exportar relatório","cp":"📋 Copiar Texto","pdf":"📄 Guardar / Imprimir PDF","csv":"📊 Exportar Excel (CSV)","sh":"📲 Partilhar (WhatsApp / E-mail)","h2D":"Repouso Diário (9h / 11h) da Semana","dn":"🛏️ +1 Repouso Normal (11h)","dr":"⏱️ +1 Repouso Reduzido (9h)","lblDs":"Início do repouso diário (opcional)","dcl":"✕ Limpar início do repouso em curso","du":"↩ Desfazer último registo","dz":"Repor semana (0/0)","tipD":"No máximo 3 repousos diários reduzidos (9h) entre dois repousos semanais. O repouso fracionado (3h + 9h) conta como normal. Repõe a semana depois do descanso semanal. Ferramenta de apoio: confirma sempre com o tacógrafo e com a empresa.","h2W":"Pausa Semanal (24h / 45h)","lblRs":"Início do descanso","rsn":"Começar Agora","lblTy":"Tipo planeado","ty24":"Pausa Reduzida (24h)","ty45":"Pausa Normal (45h ou mais)","lblRf":"Fim da pausa","lblRr":"Hora real de arranque (opcional)","rrn":"Arrancar Agora","hRr":"Se a empresa te mandar ficar em casa 60h ou 120h, regista aqui quando arrancaste.","lblRes":"Resultado","lblNext":"Próximo descanso obrigatório","rclr":"Limpar pausa","tipW":"Ferramenta de apoio. O prazo da compensação conta a partir da semana (segunda a domingo) em que a pausa começou. Confirma sempre com a tua empresa e com o tacógrafo.","hHow":"Como preencher o verso","ex0":"Exemplo 1: Dia Completo (como no curso CAM)","ex1":"Exemplo 2: Fim de Semana / Folga","ex2":"Exemplo 3: Esqueceu Cartão / Início Tarde","tkAria":"Esquema do verso do ticket do tacógrafo com a linha azul do exemplo escolhido","hTouch":"Toca no desenho para ampliar ou reduzir.","sum1":"Legenda: passo a passo","sum2":"1. Entrada manual ao inserir o cartão","sum3":"2. Tacógrafo avariado ou sem registo","l1":"<b>Nome</b>Escreve o nome completo, com letra legível.","l2":"<b>Cartão N.º e Matrícula</b>Número do cartão de condutor e matrícula do veículo que conduziste.","l3":"<b>Local de início (From) e de fim (To)</b>Onde começou e onde acabou o dia: cidade e país.","l4":"<b>Data e assinatura</b>Data do dia a que o registo se refere e a tua assinatura.","l5":"<b>Km início, fim e total</b>Copia os km do conta-quilómetros. Total = km fim menos km início.","l6":"<b>As duas grelhas</b>A de cima vai das 0h às 12h. A de baixo vai das 12h às 24h. Cada coluna é uma hora, e os traços finos são os quartos de hora.","l7":"<b>Os símbolos, de cima para baixo</b>Volante (condução), martelos (outros trabalhos), quadrado cortado (disponibilidade) e cama (repouso). Estão iguais dos dois lados.","l8":"<b>Traça a linha</b>Usa caneta azul ou preta. Começa à esquerda, na linha do símbolo da atividade, e vai até à hora em que ela acaba.","l9":"<b>Quando mudas de atividade</b>Sobe ou desce na vertical, na hora exata, até à linha do novo símbolo e continua em frente.","l10":"<b>Passagem das 12h</b>Termina a linha no fim da grelha de cima e retoma-a no início da grelha de baixo, na mesma atividade.","l11":"<b>Sem falhas</b>Procura não deixar horas por preencher entre o início e o fim do período que estás a registar.","l12":"<b>Revê antes de guardar</b>Confere as horas, os km e a assinatura. Evita rasuras e guarda o ticket no camião.","tipSchem":"Este desenho é só um esquema ilustrativo. O verso real varia conforme o fabricante e o país. Confirma com a empresa o modelo a usar e se as horas se escrevem em hora local ou em UTC.","tipTap":"Toca num passo para o marcar como feito.","m1":"<b>Insere o cartão de condutor</b>Na ranhura certa (ranhura 1 se és o condutor principal).","m2":"<b>Aceita a entrada manual</b>Quando o tacógrafo perguntar se queres introduzir atividades, escolhe «Sim».","m3":"<b>Confirma a última retirada do cartão</b>Verifica a data e a hora da última vez que tiraste o cartão.","m4":"<b>Introduz as atividades em falta</b>Volante (condução), martelo (outro trabalho), cama (repouso) ou disponibilidade.","m5":"<b>Confirma o local de início</b>Indica o país onde começa o dia de trabalho.","m6":"<b>Revê e confirma</b>Confere horas e atividades. Depois de confirmar, já não alteras.","b1":"<b>Imprime o ticket</b>No início e no fim da viagem, se o equipamento ainda imprimir.","b2":"<b>Escreve os teus dados</b>Nome, número do cartão de condutor ou da carta, e assinatura.","b3":"<b>Anota as atividades à mão</b>Hora de início e fim de cada período: condução, outro trabalho, pausa e repouso.","b4":"<b>Anota os locais</b>Local de início e de fim de cada período, sempre que possível.","b5":"<b>Guarda no camião</b>Leva o dia atual e os 28 dias anteriores para uma fiscalização.","b6":"<b>Avisa a empresa</b>Comunica a avaria e agenda a reparação numa oficina autorizada.","tipMenus":"Os menus mudam conforme a marca e o modelo do tacógrafo. Em caso de dúvida, consulta o manual do equipamento ou a empresa.","priv":"🔒 Privacidade: Todos os teus registos ficam guardados exclusivamente na memória do teu telemóvel. Não recolhemos nem vendemos dados pessoais.","ampHint":"Preenche a hora de início","nextDay":" (+1 dia)","inEndTz":" no fuso do fim","prevT":"Previsão","prevNorm":"Amplitude normal","prevExt":"Amplitude estendida","stX":"Passou as 15h: limite ultrapassado","stW":"Acima das 13h: só com amplitude estendida (15h)","stOk":"Dentro das 13h","live":" · a contar até agora","adj":" · ajustado {0}h de fuso","kmBad":"KM final é menor que o inicial","kmHint":"KM final menos KM inicial","gpsNo":"Sem GPS neste navegador. Escreve o país à mão.","locating":"A localizar…","locDone":"Local detetado: {0}","locErr":"Sem internet ou serviço bloqueado. Coordenadas: {0}, {1}. Escreve o país à mão.","gpsDenied":"Localização recusada. Autoriza no navegador ou escreve à mão.","gpsFail":"Não consegui obter o GPS. Escreve à mão.","esName":"Espanha","sc":["Portugal","Espanha - PV","Espanha - CL","Espanha - AN","Espanha - CT","França","Reino Unido"],"fromPrev":"Veio da ficha anterior. Podes editar.","amplW":"amplitude","amp":"Amplitude","tzSuf":" · {0} fuso","tzNote":"As horas escritas dão {0}; com {1} de fuso, o tempo real foi {2}.","refS":"Ref. início","refE":"Ref. fim","del":"Apagar","tapConf":"Toca para confirmar","noSheets":"Ainda não há fichas guardadas.","repTitle":"RELATÓRIO DE FICHAS DIÁRIAS","repSheets":"Fichas","repTotal":"Total","repStart":"Início","repEnd":"Fim","repKm":"Percorridos","repObs":"Obs.","copied":"Copiado ✓","pvTitle":"Relatório Mensal de Jornada e Quilómetros","pvPeriod":"Período","pvPer":"{0} a {1}","pvGen":"Gerado em","pvDays":"Dias trabalhados","pvKm":"Total de KM percorridos","pvTh":["Data","País início","País fim","Hora início","Hora fim","Amplitude","KM inicial","KM final","KM percorridos","Observações"],"refSh":"Ref.","pvPrint":"🖨️ Imprimir / Guardar PDF","pvHtml":"💾 Guardar como HTML","pvClose":"✕ Fechar","pvNote":"Se o menu de impressão não abrir, guarda como HTML, abre o ficheiro no navegador e imprime aí. Escolhe «Guardar como PDF».","pvDocT":"Relatório de Jornada","fnCsv":"fichas_jornada_","fnHtml":"relatorio_jornada_","csvH":["Data","País Início","Referência Início","País Fim","Referência Fim","Hora Início","Hora Fim","Amplitude","KM Inicial","KM Final","KM Percorridos","Observações"],"fileReady":"Ficheiro pronto: {0}","dlStarted":"Download iniciado: {0}. Se não aparecer, usa «Copiar Texto».","saveCancel":"Guardar cancelado.","saveFail":"Não foi possível guardar o ficheiro aqui. Usa «Copiar Texto».","shareNo":"A partilha nativa não é suportada neste navegador ou na pré-visualização. Usa «Copiar Texto» e cola no WhatsApp ou no e-mail.","shareTitle":"Relatório de Jornada e Quilómetros","shareFail":"Não consegui abrir a partilha aqui. Usa «Copiar Texto» e cola no WhatsApp ou no e-mail.","rNoStart":"Define o início do descanso","rHere":"Aqui completas as {0}h","rPickType":"Escolhe o tipo planeado","rBadT":"Hora inválida","rBadM":"O arranque tem de ser depois do início.","rPickOrReg":"Escolhe o tipo planeado ou regista o arranque","rPlanTag":" Com base no tipo planeado.","rLt24":"Menos de 24h","rLt24m":"Fizeste {0}. Não conta como descanso semanal. Faltam {1} para as 24h.","rRed":"Descanso Reduzido","rRedM":"Fizeste {0}. Faltam compensar <b>{1}</b>, até <b>{2}</b> (fim da 3.ª semana seguinte). Tem de ser tomado de uma vez, junto a outro descanso de pelo menos 9h.{3}","rNorm":"Descanso Normal Concluído (45h+)","rNormM":"Fizeste {0}. Sem dívida de compensação.{1}","rNextM":"Data e hora limite para INICIAR a próxima pausa semanal (6 × 24h depois do fim desta). ","rNextR":"<b>A próxima TEM DE SER de 45h.</b> Não podes fazer duas reduzidas seguidas.","rNextN":"<b>A próxima pode ser de 24h ou de 45h.</b>","ex0t":"Dia completo: não ficam falhas entre as 0h e as 24h.","ex1t":"Linha reta na cama durante as 24h. Útil para justificar repouso fora do camião.","ex2t":"A linha pára às 11h15, que é o último registo deste exemplo.","nm":["Volante","Martelos","Disponibilidade","Cama"],"tkTitle":"VERSO DO TICKET (esquema ilustrativo)","tkName":"Nome","tkCard":"Cartão N.º","tkPlate":"Matrícula","tkFrom":"Local de início (From)","tkTo":"Local de fim (To)","tkDate":"Data","tkSign":"Assinatura","tkKmS":"Km início","tkKmE":"Km fim","tkKmT":"Km total","dcT":"Normais (11h): {0} · Reduzidas (9h): {1} / 3","dwMany":"Podes fazer 9h (restam {0} reduções) ou 11h.","dwOne":"Podes fazer 9h (resta 1 redução) ou 11h.","dwMax":"⚠️ Limite atingido (3/3): O próximo repouso TEM DE SER de 11h (ou fracionado 3h+9h)!","dcalc":"Repouso reduzido <b>9h</b> completa: <b>{0}</b><br>Repouso normal <b>11h</b> completa: <b>{1}</b>","dzl":"Hora no fuso do local de fim ({0}). A duração real já ajusta a diferença para o fuso do telemóvel.","dmN":"Repouso normal (11h) registado.","dmR":"Repouso reduzido (9h) registado.","dmCleared":" O início do repouso foi limpo.","dmUndo":"Último registo desfeito.","dmNoUndo":"Não há registos para desfazer.","dmReset":"Semana reposta: 0 normais e 0 reduzidos.","dmClrStart":"Início do repouso em curso limpo.","askHave":"<p>Já tens um repouso em curso desde <b>{0}</b>. Se iniciares outro, este é substituído.</p>","askTz":"<p>⏱️ Fuso do local de fim: <b>{0}</b>. O relógio do telemóvel está <b>{1}</b> {2}; a contagem já ajusta isso.</p>","ahead":"à frente","behind":"atrás","askMain":"<p>Turno terminado às <b>{0}</b>. Queres iniciar o registo do teu repouso diário a partir desta hora?</p>","askStart":"🛏️ Iniciar Repouso ({0})","askNo":"Agora não","rcT":"🛏️ Repouso em curso desde {0}{1} — Duração até agora: {2}.","rs45":"🎉 Já atingiste 45h+: conta como Pausa Semanal Normal (45h)!","rs24":"🎉 Já atingiste 24h+: conta como Pausa Semanal Reduzida (24h)!","rs11":"✅ Já atingiste as 11h: conta como repouso Normal.","rs9":"✅ Já atingiste as 9h: conta como repouso Reduzido. Faltam {0} para as 11h (Normal).","rs9w":" ⚠️ Já tens 3/3 reduzidos: se terminares agora, passas o limite.","rsLt":"Ainda faltam {0} para as 9h (Reduzido) e {1} para as 11h (Normal).","crN":"✅ Repouso normal (11h) registado. Duração: <b>{0}</b>.","crR":"✅ Repouso reduzido (9h) registado. Duração: <b>{0}</b>.","crOver":"<br>⚠️ Limite ultrapassado ({0}/3): confirma com o tacógrafo e a empresa.","crCnt":"<br>Reduzidas: {0} / 3.","crNone":"Repouso encerrado sem contar como repouso diário válido (duração: {0}).","crNew":"<p>Hora de início da nova ficha: <b>{0}</b>.</p>","incMsg":"<p>O repouso ficou <b>incompleto</b>: {0} (menos de 9h).</p><p>Queres mesmo encerrar sem contar como repouso diário válido?</p>","incEnd":"Encerrar sem contar","incBack":"Voltar (continuar repouso)","cwMsg":"<p>✅ Pausa semanal registada: <b>{0}</b> ({1}).</p><p>Contadores de repouso diário repostos (0/0). O resultado e a compensação estão na aba Pausas e Repousos.</p>","cwNorm":"Normal, 45h+","cwRed":"Reduzida, 24h","cwGo":"Ver na aba Pausas"},"en":{"splashAria":"Enter Copiloto","splashAlt":"Welcome to Copiloto","langAria":"Language","tab1":"Daily Sheet","tab3":"Rest Periods","tab2":"Manual Ticket Help","rcw":"📅 Confirm as Weekly Rest (24h/45h)","rcn":"Cancel / Ignore","rcy":"✅ Confirm end of rest now","rcyN":"🛏️ Confirm as Normal Daily Rest (11h)","lblDt":"Date","lblPi":"Start location (Country and place)","phPi":"E.g.: Portugal (Torres Vedras service area)","getLoc":"📍 Get Location","lblNi":"Reference / note for start location","phNi":"E.g.: Service area, secure parking, dock 4...","lblKi":"Start KM","lblHi":"Start time","now":"Now","lblAmp":"Span (automatic)","lblHf":"End time","lblPf":"End location (Country and place)","phPf":"E.g.: Spain - PV (Andamur San Román)","lblNf":"Reference / note for end location","phNf":"E.g.: Galp station, customer X, overnight stop...","lblKf":"End KM","lblKm":"KM driven","lblOb":"Notes","phOb":"Loads, unloads, ferry, incidents...","save":"💾 Save sheet","clr":"Clear","hHist":"History","exp":"📄 Export report","cp":"📋 Copy Text","pdf":"📄 Save / Print PDF","csv":"📊 Export Excel (CSV)","sh":"📲 Share (WhatsApp / E-mail)","h2D":"Daily Rest (9h / 11h) of the Week","dn":"🛏️ +1 Normal Rest (11h)","dr":"⏱️ +1 Reduced Rest (9h)","lblDs":"Daily rest start (optional)","dcl":"✕ Clear start of ongoing rest","du":"↩ Undo last entry","dz":"Reset week (0/0)","tipD":"A maximum of 3 reduced daily rests (9h) between two weekly rests. Split rest (3h + 9h) counts as normal. Reset the week after the weekly rest. Support tool: always check with the tachograph and your company.","h2W":"Weekly Rest (24h / 45h)","lblRs":"Rest start","rsn":"Start Now","lblTy":"Planned type","ty24":"Reduced Rest (24h)","ty45":"Normal Rest (45h or more)","lblRf":"End of rest","lblRr":"Actual departure time (optional)","rrn":"Set Off Now","hRr":"If your company tells you to stay home for 60h or 120h, record here when you set off.","lblRes":"Result","lblNext":"Next mandatory rest","rclr":"Clear rest","tipW":"Support tool. The compensation deadline counts from the week (Monday to Sunday) in which the rest started. Always check with your company and the tachograph.","hHow":"How to fill in the back","ex0":"Example 1: Full Day (as in the driver CPC course)","ex1":"Example 2: Weekend / Day Off","ex2":"Example 3: Forgot Card / Late Start","tkAria":"Diagram of the back of the tachograph ticket with the blue line of the chosen example","hTouch":"Tap the drawing to zoom in or out.","sum1":"Legend: step by step","sum2":"1. Manual entry when inserting the card","sum3":"2. Tachograph faulty or not recording","l1":"<b>Name</b>Write your full name in legible handwriting.","l2":"<b>Card No. and Plate</b>Driver card number and registration plate of the vehicle you drove.","l3":"<b>Start place (From) and end place (To)</b>Where the day began and ended: city and country.","l4":"<b>Date and signature</b>The date the record refers to, and your signature.","l5":"<b>Km start, end and total</b>Copy the km from the odometer. Total = end km minus start km.","l6":"<b>The two grids</b>The top one runs from 0h to 12h. The bottom one runs from 12h to 24h. Each column is one hour, and the thin marks are quarter-hours.","l7":"<b>The symbols, top to bottom</b>Steering wheel (driving), hammers (other work), crossed square (availability) and bed (rest). They are the same on both sides.","l8":"<b>Draw the line</b>Use a blue or black pen. Start on the left, on the row of the activity symbol, and go to the hour when it ends.","l9":"<b>When you change activity</b>Go up or down vertically, at the exact hour, to the row of the new symbol and continue straight ahead.","l10":"<b>Crossing 12h</b>End the line at the end of the top grid and resume it at the start of the bottom grid, on the same activity.","l11":"<b>No gaps</b>Try not to leave any hours blank between the start and the end of the period you are recording.","l12":"<b>Review before storing</b>Check the hours, the km and the signature. Avoid scratch-outs and keep the ticket in the truck.","tipSchem":"This drawing is only an illustrative diagram. The real back of the ticket varies by manufacturer and country. Check with your company which model to use and whether times are written in local time or UTC.","tipTap":"Tap a step to mark it as done.","m1":"<b>Insert the driver card</b>In the right slot (slot 1 if you are the main driver).","m2":"<b>Accept manual entry</b>When the tachograph asks whether you want to enter activities, choose “Yes”.","m3":"<b>Confirm the last card withdrawal</b>Check the date and time when you last removed the card.","m4":"<b>Enter the missing activities</b>Steering wheel (driving), hammer (other work), bed (rest) or availability.","m5":"<b>Confirm the start place</b>Enter the country where the working day begins.","m6":"<b>Review and confirm</b>Check the hours and activities. Once confirmed, you can no longer change them.","b1":"<b>Print the ticket</b>At the start and at the end of the trip, if the equipment can still print.","b2":"<b>Write your details</b>Name, driver card or licence number, and signature.","b3":"<b>Note the activities by hand</b>Start and end time of each period: driving, other work, break and rest.","b4":"<b>Note the places</b>Start and end place of each period, whenever possible.","b5":"<b>Keep it in the truck</b>Carry the current day and the previous 28 days for an inspection.","b6":"<b>Tell the company</b>Report the fault and book the repair at an authorised workshop.","tipMenus":"Menus change depending on the make and model of the tachograph. If in doubt, check the equipment manual or ask your company.","priv":"🔒 Privacy: All your records are stored exclusively in your phone's memory. We do not collect or sell personal data.","ampHint":"Fill in the start time","nextDay":" (+1 day)","inEndTz":" in end time zone","prevT":"Forecast","prevNorm":"Normal span","prevExt":"Extended span","stX":"Over 15h: limit exceeded","stW":"Above 13h: only with extended span (15h)","stOk":"Within 13h","live":" · counting up to now","adj":" · adjusted {0}h for time zone","kmBad":"End KM is lower than start KM","kmHint":"End KM minus start KM","gpsNo":"No GPS in this browser. Type the country by hand.","locating":"Locating…","locDone":"Location detected: {0}","locErr":"No internet or service blocked. Coordinates: {0}, {1}. Type the country by hand.","gpsDenied":"Location denied. Allow it in the browser or type by hand.","gpsFail":"Could not get GPS. Type by hand.","esName":"Spain","sc":["Portugal","Spain - PV","Spain - CL","Spain - AN","Spain - CT","France","United Kingdom"],"fromPrev":"Taken from the previous sheet. You can edit it.","amplW":"span","amp":"Span","tzSuf":" · {0} time zone","tzNote":"The written times give {0}; with {1} time-zone difference, the real time was {2}.","refS":"Start ref.","refE":"End ref.","del":"Delete","tapConf":"Tap to confirm","noSheets":"No saved sheets yet.","repTitle":"DAILY SHEETS REPORT","repSheets":"Sheets","repTotal":"Total","repStart":"Start","repEnd":"End","repKm":"Driven","repObs":"Notes","copied":"Copied ✓","pvTitle":"Monthly Working Time and Kilometres Report","pvPeriod":"Period","pvPer":"{0} to {1}","pvGen":"Generated on","pvDays":"Days worked","pvKm":"Total KM driven","pvTh":["Date","Start country","End country","Start time","End time","Span","Start KM","End KM","KM driven","Notes"],"refSh":"Ref.","pvPrint":"🖨️ Print / Save PDF","pvHtml":"💾 Save as HTML","pvClose":"✕ Close","pvNote":"If the print menu does not open, save as HTML, open the file in your browser and print from there. Choose “Save as PDF”.","pvDocT":"Shift Report","fnCsv":"daily_sheets_","fnHtml":"shift_report_","csvH":["Date","Start Country","Start Reference","End Country","End Reference","Start Time","End Time","Span","Start KM","End KM","KM Driven","Notes"],"fileReady":"File ready: {0}","dlStarted":"Download started: {0}. If it does not appear, use “Copy Text”.","saveCancel":"Save cancelled.","saveFail":"Could not save the file here. Use “Copy Text”.","shareNo":"Native sharing is not supported in this browser or in preview. Use “Copy Text” and paste it into WhatsApp or e-mail.","shareTitle":"Working Time and Kilometres Report","shareFail":"Could not open sharing here. Use “Copy Text” and paste it into WhatsApp or e-mail.","rNoStart":"Set the start of the rest","rHere":"You complete {0}h here","rPickType":"Choose the planned type","rBadT":"Invalid time","rBadM":"The departure must be after the start.","rPickOrReg":"Choose the planned type or record the departure","rPlanTag":" Based on the planned type.","rLt24":"Less than 24h","rLt24m":"You took {0}. It does not count as weekly rest. {1} missing to reach 24h.","rRed":"Reduced Rest","rRedM":"You took {0}. <b>{1}</b> still to be compensated, by <b>{2}</b> (end of the 3rd following week). It must be taken in one block, attached to another rest of at least 9h.{3}","rNorm":"Normal Rest Completed (45h+)","rNormM":"You took {0}. No compensation owed.{1}","rNextM":"Deadline date and time to START the next weekly rest (6 × 24h after the end of this one). ","rNextR":"<b>The next one MUST be 45h.</b> You cannot take two reduced rests in a row.","rNextN":"<b>The next one can be 24h or 45h.</b>","ex0t":"Full day: no gaps between 0h and 24h.","ex1t":"Straight line on the bed symbol for all 24h. Useful to show rest taken outside the truck.","ex2t":"The line stops at 11h15, the last entry in this example.","nm":["Driving","Other work","Availability","Rest"],"tkTitle":"BACK OF THE TICKET (illustrative diagram)","tkName":"Name","tkCard":"Card No.","tkPlate":"Plate","tkFrom":"Start place (From)","tkTo":"End place (To)","tkDate":"Date","tkSign":"Signature","tkKmS":"Km start","tkKmE":"Km end","tkKmT":"Km total","dcT":"Normal (11h): {0} · Reduced (9h): {1} / 3","dwMany":"You can take 9h ({0} reductions left) or 11h.","dwOne":"You can take 9h (1 reduction left) or 11h.","dwMax":"⚠️ Limit reached (3/3): the next rest MUST be 11h (or split 3h+9h)!","dcalc":"Reduced rest <b>9h</b> completes at: <b>{0}</b><br>Normal rest <b>11h</b> completes at: <b>{1}</b>","dzl":"Time in the end-location time zone ({0}). The real duration already adjusts for the difference to your phone's time zone.","dmN":"Normal rest (11h) recorded.","dmR":"Reduced rest (9h) recorded.","dmCleared":" The rest start was cleared.","dmUndo":"Last entry undone.","dmNoUndo":"No entries to undo.","dmReset":"Week reset: 0 normal and 0 reduced.","dmClrStart":"Start of ongoing rest cleared.","askHave":"<p>You already have a rest in progress since <b>{0}</b>. If you start another, this one is replaced.</p>","askTz":"<p>⏱️ End-location time zone: <b>{0}</b>. Your phone clock is <b>{1}</b> {2}; the count already adjusts for this.</p>","ahead":"ahead","behind":"behind","askMain":"<p>Shift ended at <b>{0}</b>. Do you want to start recording your daily rest from this time?</p>","askStart":"🛏️ Start Rest ({0})","askNo":"Not now","rcT":"🛏️ Rest in progress since {0}{1} — Duration so far: {2}.","rs45":"🎉 You have reached 45h+: counts as Normal Weekly Rest (45h)!","rs24":"🎉 You have reached 24h+: counts as Reduced Weekly Rest (24h)!","rs11":"✅ You have reached 11h: counts as Normal rest.","rs9":"✅ You have reached 9h: counts as Reduced rest. {0} left to reach 11h (Normal).","rs9w":" ⚠️ You already have 3/3 reduced: if you end now, you exceed the limit.","rsLt":"{0} left to reach 9h (Reduced) and {1} left to reach 11h (Normal).","crN":"✅ Normal rest (11h) recorded. Duration: <b>{0}</b>.","crR":"✅ Reduced rest (9h) recorded. Duration: <b>{0}</b>.","crOver":"<br>⚠️ Limit exceeded ({0}/3): check with the tachograph and your company.","crCnt":"<br>Reduced: {0} / 3.","crNone":"Rest closed without counting as a valid daily rest (duration: {0}).","crNew":"<p>Start time of the new sheet: <b>{0}</b>.</p>","incMsg":"<p>The rest was <b>incomplete</b>: {0} (less than 9h).</p><p>Do you really want to close it without counting as a valid daily rest?</p>","incEnd":"Close without counting","incBack":"Go back (continue rest)","cwMsg":"<p>✅ Weekly rest recorded: <b>{0}</b> ({1}).</p><p>Daily rest counters reset (0/0). The result and compensation are in the Rest Periods tab.</p>","cwNorm":"Normal, 45h+","cwRed":"Reduced, 24h","cwGo":"See in Rest tab"},"es":{"splashAria":"Entrar en Copiloto","splashAlt":"Bienvenido a Copiloto","langAria":"Idioma","tab1":"Ficha diaria","tab3":"Pausas y Descansos","tab2":"Ayuda Ticket Manual","rcw":"📅 Confirmar como Descanso Semanal (24h/45h)","rcn":"Cancelar / Ignorar","rcy":"✅ Confirmar fin del descanso ahora","rcyN":"🛏️ Confirmar como Descanso Diario Normal (11h)","lblDt":"Fecha","lblPi":"Lugar de inicio (País y punto)","phPi":"Ej.: Portugal (Área de servicio Torres Vedras)","getLoc":"📍 Obtener Ubicación","lblNi":"Referencia / nota del lugar de inicio","phNi":"Ej.: Área de servicio, parking vigilado, muelle 4...","lblKi":"KM inicial","lblHi":"Hora de inicio","now":"Ahora","lblAmp":"Amplitud (automática)","lblHf":"Hora final","lblPf":"Lugar de fin (País y punto)","phPf":"Ej.: España - PV (Andamur San Román)","lblNf":"Referencia / nota del lugar de fin","phNf":"Ej.: Gasolinera Galp, cliente X, pernocta...","lblKf":"KM final","lblKm":"KM recorridos","lblOb":"Observaciones","phOb":"Cargas, descargas, ferry, incidencias...","save":"💾 Guardar ficha","clr":"Limpiar","hHist":"Historial","exp":"📄 Exportar informe","cp":"📋 Copiar Texto","pdf":"📄 Guardar / Imprimir PDF","csv":"📊 Exportar Excel (CSV)","sh":"📲 Compartir (WhatsApp / E-mail)","h2D":"Descanso Diario (9h / 11h) de la Semana","dn":"🛏️ +1 Descanso Normal (11h)","dr":"⏱️ +1 Descanso Reducido (9h)","lblDs":"Inicio del descanso diario (opcional)","dcl":"✕ Borrar inicio del descanso en curso","du":"↩ Deshacer último registro","dz":"Reiniciar semana (0/0)","tipD":"Máximo 3 descansos diarios reducidos (9h) entre dos descansos semanales. El descanso fraccionado (3h + 9h) cuenta como normal. Reinicia la semana después del descanso semanal. Herramienta de apoyo: confirma siempre con el tacógrafo y con la empresa.","h2W":"Descanso Semanal (24h / 45h)","lblRs":"Inicio del descanso","rsn":"Empezar Ahora","lblTy":"Tipo planificado","ty24":"Descanso Reducido (24h)","ty45":"Descanso Normal (45h o más)","lblRf":"Fin del descanso","lblRr":"Hora real de arranque (opcional)","rrn":"Arrancar Ahora","hRr":"Si la empresa te manda quedarte en casa 60h o 120h, anota aquí cuándo arrancaste.","lblRes":"Resultado","lblNext":"Próximo descanso obligatorio","rclr":"Borrar descanso","tipW":"Herramienta de apoyo. El plazo de compensación cuenta desde la semana (de lunes a domingo) en que empezó el descanso. Confirma siempre con tu empresa y con el tacógrafo.","hHow":"Cómo rellenar el reverso","ex0":"Ejemplo 1: Día Completo (como en el curso CAP)","ex1":"Ejemplo 2: Fin de Semana / Día Libre","ex2":"Ejemplo 3: Olvidó la Tarjeta / Inicio Tardío","tkAria":"Esquema del reverso del ticket del tacógrafo con la línea azul del ejemplo elegido","hTouch":"Toca el dibujo para ampliar o reducir.","sum1":"Leyenda: paso a paso","sum2":"1. Entrada manual al introducir la tarjeta","sum3":"2. Tacógrafo averiado o sin registro","l1":"<b>Nombre</b>Escribe el nombre completo, con letra legible.","l2":"<b>N.º de tarjeta y Matrícula</b>Número de la tarjeta de conductor y matrícula del vehículo que conduciste.","l3":"<b>Lugar de inicio (From) y de fin (To)</b>Dónde empezó y dónde terminó el día: ciudad y país.","l4":"<b>Fecha y firma</b>La fecha del día al que se refiere el registro y tu firma.","l5":"<b>Km inicio, fin y total</b>Copia los km del cuentakilómetros. Total = km fin menos km inicio.","l6":"<b>Las dos cuadrículas</b>La de arriba va de 0h a 12h. La de abajo va de 12h a 24h. Cada columna es una hora, y las rayas finas son los cuartos de hora.","l7":"<b>Los símbolos, de arriba abajo</b>Volante (conducción), martillos (otros trabajos), cuadrado tachado (disponibilidad) y cama (descanso). Son iguales en ambos lados.","l8":"<b>Traza la línea</b>Usa bolígrafo azul o negro. Empieza a la izquierda, en la fila del símbolo de la actividad, y llega hasta la hora en que termina.","l9":"<b>Cuando cambias de actividad</b>Sube o baja en vertical, en la hora exacta, hasta la fila del nuevo símbolo y sigue hacia delante.","l10":"<b>Paso de las 12h</b>Termina la línea al final de la cuadrícula de arriba y retómala al inicio de la de abajo, en la misma actividad.","l11":"<b>Sin huecos</b>Procura no dejar horas sin rellenar entre el inicio y el fin del período que estás registrando.","l12":"<b>Revisa antes de guardar</b>Comprueba las horas, los km y la firma. Evita tachaduras y guarda el ticket en el camión.","tipSchem":"Este dibujo es solo un esquema ilustrativo. El reverso real varía según el fabricante y el país. Confirma con la empresa el modelo a usar y si las horas se escriben en hora local o en UTC.","tipTap":"Toca un paso para marcarlo como hecho.","m1":"<b>Introduce la tarjeta de conductor</b>En la ranura correcta (ranura 1 si eres el conductor principal).","m2":"<b>Acepta la entrada manual</b>Cuando el tacógrafo pregunte si quieres introducir actividades, elige «Sí».","m3":"<b>Confirma la última retirada de la tarjeta</b>Comprueba la fecha y la hora de la última vez que sacaste la tarjeta.","m4":"<b>Introduce las actividades que faltan</b>Volante (conducción), martillo (otro trabajo), cama (descanso) o disponibilidad.","m5":"<b>Confirma el lugar de inicio</b>Indica el país donde empieza la jornada de trabajo.","m6":"<b>Revisa y confirma</b>Comprueba horas y actividades. Una vez confirmado, ya no se puede cambiar.","b1":"<b>Imprime el ticket</b>Al inicio y al final del viaje, si el equipo aún imprime.","b2":"<b>Escribe tus datos</b>Nombre, número de la tarjeta de conductor o del carné, y firma.","b3":"<b>Anota las actividades a mano</b>Hora de inicio y fin de cada período: conducción, otro trabajo, pausa y descanso.","b4":"<b>Anota los lugares</b>Lugar de inicio y de fin de cada período, siempre que sea posible.","b5":"<b>Guárdalo en el camión</b>Lleva el día actual y los 28 días anteriores para una inspección.","b6":"<b>Avisa a la empresa</b>Comunica la avería y programa la reparación en un taller autorizado.","tipMenus":"Los menús cambian según la marca y el modelo del tacógrafo. En caso de duda, consulta el manual del equipo o a la empresa.","priv":"🔒 Privacidad: Todos tus registros se guardan exclusivamente en la memoria de tu teléfono. No recopilamos ni vendemos datos personales.","ampHint":"Rellena la hora de inicio","nextDay":" (+1 día)","inEndTz":" en el huso del fin","prevT":"Previsión","prevNorm":"Amplitud normal","prevExt":"Amplitud extendida","stX":"Pasaste las 15h: límite superado","stW":"Por encima de 13h: solo con amplitud extendida (15h)","stOk":"Dentro de las 13h","live":" · contando hasta ahora","adj":" · ajustado {0}h por huso horario","kmBad":"El KM final es menor que el inicial","kmHint":"KM final menos KM inicial","gpsNo":"Sin GPS en este navegador. Escribe el país a mano.","locating":"Localizando…","locDone":"Lugar detectado: {0}","locErr":"Sin internet o servicio bloqueado. Coordenadas: {0}, {1}. Escribe el país a mano.","gpsDenied":"Ubicación rechazada. Autoriza en el navegador o escribe a mano.","gpsFail":"No pude obtener el GPS. Escribe a mano.","esName":"España","sc":["Portugal","España - PV","España - CL","España - AN","España - CT","Francia","Reino Unido"],"fromPrev":"Viene de la ficha anterior. Puedes editarla.","amplW":"amplitud","amp":"Amplitud","tzSuf":" · {0} huso","tzNote":"Las horas escritas dan {0}; con {1} de huso, el tiempo real fue {2}.","refS":"Ref. inicio","refE":"Ref. fin","del":"Borrar","tapConf":"Toca para confirmar","noSheets":"Aún no hay fichas guardadas.","repTitle":"INFORME DE FICHAS DIARIAS","repSheets":"Fichas","repTotal":"Total","repStart":"Inicio","repEnd":"Fin","repKm":"Recorridos","repObs":"Obs.","copied":"Copiado ✓","pvTitle":"Informe Mensual de Jornada y Kilómetros","pvPeriod":"Período","pvPer":"{0} a {1}","pvGen":"Generado el","pvDays":"Días trabajados","pvKm":"Total de KM recorridos","pvTh":["Fecha","País inicio","País fin","Hora inicio","Hora fin","Amplitud","KM inicial","KM final","KM recorridos","Observaciones"],"refSh":"Ref.","pvPrint":"🖨️ Imprimir / Guardar PDF","pvHtml":"💾 Guardar como HTML","pvClose":"✕ Cerrar","pvNote":"Si el menú de impresión no se abre, guarda como HTML, abre el archivo en el navegador e imprime desde allí. Elige «Guardar como PDF».","pvDocT":"Informe de Jornada","fnCsv":"fichas_jornada_","fnHtml":"informe_jornada_","csvH":["Fecha","País Inicio","Referencia Inicio","País Fin","Referencia Fin","Hora Inicio","Hora Fin","Amplitud","KM Inicial","KM Final","KM Recorridos","Observaciones"],"fileReady":"Archivo listo: {0}","dlStarted":"Descarga iniciada: {0}. Si no aparece, usa «Copiar Texto».","saveCancel":"Guardado cancelado.","saveFail":"No fue posible guardar el archivo aquí. Usa «Copiar Texto».","shareNo":"Compartir de forma nativa no es compatible con este navegador o con la vista previa. Usa «Copiar Texto» y pégalo en WhatsApp o en el correo.","shareTitle":"Informe de Jornada y Kilómetros","shareFail":"No pude abrir el menú de compartir aquí. Usa «Copiar Texto» y pégalo en WhatsApp o en el correo.","rNoStart":"Define el inicio del descanso","rHere":"Aquí completas las {0}h","rPickType":"Elige el tipo planificado","rBadT":"Hora no válida","rBadM":"El arranque tiene que ser posterior al inicio.","rPickOrReg":"Elige el tipo planificado o registra el arranque","rPlanTag":" Según el tipo planificado.","rLt24":"Menos de 24h","rLt24m":"Hiciste {0}. No cuenta como descanso semanal. Faltan {1} para las 24h.","rRed":"Descanso Reducido","rRedM":"Hiciste {0}. Faltan por compensar <b>{1}</b>, hasta el <b>{2}</b> (fin de la 3.ª semana siguiente). Debe tomarse de una vez, unido a otro descanso de al menos 9h.{3}","rNorm":"Descanso Normal Completado (45h+)","rNormM":"Hiciste {0}. Sin deuda de compensación.{1}","rNextM":"Fecha y hora límite para INICIAR el próximo descanso semanal (6 × 24h después del fin de este). ","rNextR":"<b>El próximo TIENE QUE SER de 45h.</b> No puedes hacer dos reducidos seguidos.","rNextN":"<b>El próximo puede ser de 24h o de 45h.</b>","ex0t":"Día completo: no quedan huecos entre las 0h y las 24h.","ex1t":"Línea recta en la cama durante las 24h. Útil para justificar descanso fuera del camión.","ex2t":"La línea se detiene a las 11h15, que es el último registro de este ejemplo.","nm":["Conducción","Otros trabajos","Disponibilidad","Descanso"],"tkTitle":"REVERSO DEL TICKET (esquema ilustrativo)","tkName":"Nombre","tkCard":"Tarjeta N.º","tkPlate":"Matrícula","tkFrom":"Lugar de inicio (From)","tkTo":"Lugar de fin (To)","tkDate":"Fecha","tkSign":"Firma","tkKmS":"Km inicio","tkKmE":"Km fin","tkKmT":"Km total","dcT":"Normales (11h): {0} · Reducidos (9h): {1} / 3","dwMany":"Puedes hacer 9h (quedan {0} reducciones) u 11h.","dwOne":"Puedes hacer 9h (queda 1 reducción) u 11h.","dwMax":"⚠️ Límite alcanzado (3/3): ¡El próximo descanso TIENE QUE SER de 11h (o fraccionado 3h+9h)!","dcalc":"Descanso reducido de <b>9h</b> se completa: <b>{0}</b><br>Descanso normal de <b>11h</b> se completa: <b>{1}</b>","dzl":"Hora en el huso del lugar de fin ({0}). La duración real ya ajusta la diferencia con el huso del teléfono.","dmN":"Descanso normal (11h) registrado.","dmR":"Descanso reducido (9h) registrado.","dmCleared":" El inicio del descanso se ha borrado.","dmUndo":"Último registro deshecho.","dmNoUndo":"No hay registros que deshacer.","dmReset":"Semana reiniciada: 0 normales y 0 reducidos.","dmClrStart":"Inicio del descanso en curso borrado.","askHave":"<p>Ya tienes un descanso en curso desde <b>{0}</b>. Si inicias otro, este se sustituye.</p>","askTz":"<p>⏱️ Huso del lugar de fin: <b>{0}</b>. El reloj del teléfono está <b>{1}</b> {2}; la cuenta ya lo ajusta.</p>","ahead":"adelantado","behind":"atrasado","askMain":"<p>Turno terminado a las <b>{0}</b>. ¿Quieres iniciar el registro de tu descanso diario a partir de esta hora?</p>","askStart":"🛏️ Iniciar Descanso ({0})","askNo":"Ahora no","rcT":"🛏️ Descanso en curso desde {0}{1} — Duración hasta ahora: {2}.","rs45":"🎉 Ya alcanzaste 45h+: ¡cuenta como Descanso Semanal Normal (45h)!","rs24":"🎉 Ya alcanzaste 24h+: ¡cuenta como Descanso Semanal Reducido (24h)!","rs11":"✅ Ya alcanzaste las 11h: cuenta como descanso Normal.","rs9":"✅ Ya alcanzaste las 9h: cuenta como descanso Reducido. Faltan {0} para las 11h (Normal).","rs9w":" ⚠️ Ya tienes 3/3 reducidos: si terminas ahora, superas el límite.","rsLt":"Aún faltan {0} para las 9h (Reducido) y {1} para las 11h (Normal).","crN":"✅ Descanso normal (11h) registrado. Duración: <b>{0}</b>.","crR":"✅ Descanso reducido (9h) registrado. Duración: <b>{0}</b>.","crOver":"<br>⚠️ Límite superado ({0}/3): confirma con el tacógrafo y con la empresa.","crCnt":"<br>Reducidos: {0} / 3.","crNone":"Descanso cerrado sin contar como descanso diario válido (duración: {0}).","crNew":"<p>Hora de inicio de la nueva ficha: <b>{0}</b>.</p>","incMsg":"<p>El descanso quedó <b>incompleto</b>: {0} (menos de 9h).</p><p>¿Seguro que quieres cerrarlo sin contar como descanso diario válido?</p>","incEnd":"Cerrar sin contar","incBack":"Volver (continuar descanso)","cwMsg":"<p>✅ Descanso semanal registrado: <b>{0}</b> ({1}).</p><p>Contadores de descanso diario reiniciados (0/0). El resultado y la compensación están en la pestaña Pausas y Descansos.</p>","cwNorm":"Normal, 45h+","cwRed":"Reducido, 24h","cwGo":"Ver en pestaña Pausas"}};
+const LANGS=["pt","en","es"],LOC={pt:"pt-PT",en:"en-GB",es:"es-ES"},ALANG={pt:"pt-PT",en:"en",es:"es"};
+function detectLang(){
+  let v=null;try{v=localStorage.getItem("lang")}catch(e){}
+  if(LANGS.includes(v))return v;
+  const n=(navigator.language||(navigator.languages&&navigator.languages[0])||"").toLowerCase();
+  const l=n.startsWith("en")?"en":n.startsWith("es")?"es":"pt";
+  try{localStorage.setItem("lang",l)}catch(e){}
+  return l;
+}
+let LG=detectLang();
+const tr=(k,...a)=>{const d=I18N[LG],v=d&&d[k]!==undefined?d[k]:I18N.pt[k];return typeof v==="string"?v.replace(/\{(\d+)\}/g,(m,i)=>a[+i]??""):v};
+const setMsg=(sel,fn)=>{const e=$(sel);e._m=fn;e.textContent=fn()};
+function applyStatic(){
+  document.documentElement.lang=LOC[LG];
+  $$("[data-i]").forEach(e=>e.textContent=tr(e.dataset.i));
+  $$("[data-ih]").forEach(e=>e.innerHTML=tr(e.dataset.ih));
+  $$("[data-ip]").forEach(e=>e.placeholder=tr(e.dataset.ip));
+  $$("[data-ia]").forEach(e=>e.dataset.ia.split(";").forEach(p=>{const[a,k]=p.split(":");e.setAttribute(a,tr(k))}));
+  $$(".lg button").forEach(b=>{const on=b.dataset.l===LG;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});
+}
+function applyLang(){
+  applyStatic();
+  $$("#dz,#rclr").forEach(b=>b.dataset.c="");
+  renderSC();calc();hist();rest();draw(curEx);daily();
+  ["#hpi","#hpf","#dm","#xh"].forEach(q=>{const e=$(q);if(e._m)e.textContent=e._m()});
+  if(!$("#repw").hidden)buildReport();
+}
+function setLang(l){if(!LANGS.includes(l)||l===LG)return;LG=l;try{localStorage.setItem("lang",l)}catch(e){}applyLang()}
+
 function calc(){
   const s=$("#hi").value,e=$("#hf").value,ts=tz($("#pi").value),te=tz($("#pf").value),pv=$("#prev"),a=$("#amp");
   let amp=null;
-  if(!s){pv.hidden=true;a.className="big";a.innerHTML='<div class="v">--</div><div class="m">Preenche a hora de início</div>'}
+  if(!s){pv.hidden=true;a.className="big";a.innerHTML='<div class="v">--</div><div class="m">'+tr("ampHint")+'</div>'}
   else{
     const b=tm(s);
-    const row=h=>{let t=b+h*60,x=hm(t)+(t>=1440?" (+1 dia)":"");
-      if(ts!==null&&te!==null&&ts!==te)x+=" · "+hm(t+(te-ts)*60)+" no fuso do fim";return"<b>"+h+"h</b> → "+x};
+    const row=h=>{let t=b+h*60,x=hm(t)+(t>=1440?tr("nextDay"):"");
+      if(ts!==null&&te!==null&&ts!==te)x+=" · "+hm(t+(te-ts)*60)+tr("inEndTz");return"<b>"+h+"h</b> → "+x};
     pv.hidden=false;
-    pv.innerHTML="Previsão"+(ts!==null?" ("+zl(ts)+")":"")+":<br>Amplitude normal "+row(13)+"<br>Amplitude estendida "+row(15);
+    pv.innerHTML=tr("prevT")+(ts!==null?" ("+zl(ts)+")":"")+":<br>"+tr("prevNorm")+" "+row(13)+"<br>"+tr("prevExt")+" "+row(15);
     const live=!e;let d=tm(e||nowHM())-b;if(d<0)d+=1440;
     const ze=te!==null?te:ts,zs=ts!==null?ts:ze;
     let adj=0;if(ze!==null&&zs!==null)adj=(ze-zs)*60;
     amp=d-adj;if(amp<0)amp=0;
     const c=amp>900?"x":amp>780?"w":"ok";
-    const st=amp>900?"Passou as 15h: limite ultrapassado":amp>780?"Acima das 13h: só com amplitude estendida (15h)":"Dentro das 13h";
+    const st=tr(amp>900?"stX":amp>780?"stW":"stOk");
     a.className="big "+c;
-    a.innerHTML='<div class="v">'+dur(amp)+'</div><div class="m">'+st+(live?" · a contar até agora":"")+(adj?" · ajustado "+(adj>0?"-":"+")+Math.abs(adj/60)+"h de fuso":"")+"</div>";
+    a.innerHTML='<div class="v">'+dur(amp)+'</div><div class="m">'+st+(live?tr("live"):"")+(adj?tr("adj",(adj>0?"-":"+")+Math.abs(adj/60)):"")+"</div>";
   }
   const ki=$("#ki").value,kf=$("#kf").value,k=$("#km");let km=null;
-  if(ki!==""&&kf!==""){km=kf-ki;k.className="big "+(km<0?"x":"ok");k.innerHTML='<div class="v">'+(km<0?"?":km+" km")+'</div><div class="m">'+(km<0?"KM final é menor que o inicial":"KM final menos KM inicial")+"</div>"}
-  else{k.className="big";k.innerHTML='<div class="v">--</div><div class="m">KM final menos KM inicial</div>'}
+  if(ki!==""&&kf!==""){km=kf-ki;k.className="big "+(km<0?"x":"ok");k.innerHTML='<div class="v">'+(km<0?"?":km+" km")+'</div><div class="m">'+tr(km<0?"kmBad":"kmHint")+"</div>"}
+  else{k.className="big";k.innerHTML='<div class="v">--</div><div class="m">'+tr("kmHint")+'</div>'}
   return{amp,km};
 }
 
 $$("[data-g]").forEach(b=>b.onclick=()=>{
-  const id=b.dataset.g,h=$("#h"+id),lab=b.textContent;
-  if(!navigator.geolocation){h.textContent="Sem GPS neste navegador. Escreve o país à mão.";return}
-  b.disabled=true;b.textContent="A localizar…";h.textContent="";
+  const id=b.dataset.g,hs="#h"+id;
+  if(!navigator.geolocation){setMsg(hs,()=>tr("gpsNo"));return}
+  b.disabled=true;b.textContent=tr("locating");setMsg(hs,()=>"");
   navigator.geolocation.getCurrentPosition(async p=>{
     const la=p.coords.latitude,lo=p.coords.longitude;
     try{
-      const r=await fetch("https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=18&accept-language=pt-PT&lat="+la+"&lon="+lo);
+      const r=await fetch("https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=18&accept-language="+ALANG[LG]+"&lat="+la+"&lon="+lo);
       const j=await r.json(),ad=j.address||{};let v=ad.country||"";
-      if((ad.country_code||"")==="es"){const sg=(ad["ISO3166-2-lvl4"]||"").split("-")[1];v="Espanha"+(sg?" - "+sg:"")}
+      if((ad.country_code||"")==="es"){const sg=(ad["ISO3166-2-lvl4"]||"").split("-")[1];v=tr("esName")+(sg?" - "+sg:"")}
       if(!v)throw 0;
       const nb=ad.building&&ad.building!=="yes"?ad.building:"";
       const poi=ad.amenity||ad.shop||ad.tourism||ad.leisure||ad.industrial||ad.office||ad.craft||ad.man_made||ad.aeroway||nb||ad.highway||ad.road||j.name||"";
@@ -287,10 +326,10 @@ $$("[data-g]").forEach(b=>b.onclick=()=>{
       const seen=new Set(),out=[];
       parts.forEach(t=>{t=(t||"").trim();if(!t)return;const k=nz(t);if(seen.has(k))return;seen.add(k);out.push(t)});
       if(out.length)v+=" ("+out.join(", ")+")";
-      $("#"+id).value=v;h.textContent="Local detetado: "+v
-    }catch(e){h.textContent="Sem internet ou serviço bloqueado. Coordenadas: "+la.toFixed(3)+", "+lo.toFixed(3)+". Escreve o país à mão."}
-    b.disabled=false;b.textContent=lab;calc();
-  },er=>{h.textContent=er.code===1?"Localização recusada. Autoriza no navegador ou escreve à mão.":"Não consegui obter o GPS. Escreve à mão.";b.disabled=false;b.textContent=lab},{timeout:15000,maximumAge:60000});
+      $("#"+id).value=v;setMsg(hs,()=>tr("locDone",v))
+    }catch(e){setMsg(hs,()=>tr("locErr",la.toFixed(3),lo.toFixed(3)))}
+    b.disabled=false;b.textContent=tr("getLoc");calc();
+  },er=>{setMsg(hs,()=>tr(er.code===1?"gpsDenied":"gpsFail"));b.disabled=false;b.textContent=tr("getLoc")},{timeout:15000,maximumAge:60000});
 });
 $$("[data-n]").forEach(b=>b.onclick=()=>{$("#"+b.dataset.n).value=nowHM();calc()});
 ["pi","pf","hi","hf","ki","kf"].forEach(i=>$("#"+i).addEventListener("input",calc));
@@ -302,17 +341,17 @@ const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[
 function histTime(f){
   const ts=tz(f.pi||""),te=tz(f.pf||""),dif=ts!==null&&te!==null&&ts!==te;
   const sg=dif?(te>ts?"-":"+")+Math.abs(te-ts)+"h":"";
-  let o="<div>"+(f.hi||"--")+(dif?" ("+zl(ts)+")":"")+" → "+(f.hf||"--")+(dif?" ("+zl(te)+")":"")+" · amplitude "+(f.amp!=null?dur(f.amp):"--")+(dif?" · "+sg+" fuso":"")+"</div>";
-  if(dif&&f.hi&&f.hf&&f.amp!=null){let d=tm(f.hf)-tm(f.hi);if(d<0)d+=1440;o+="<div>As horas escritas dão "+dur(d)+"; com "+sg+" de fuso, o tempo real foi "+dur(f.amp)+".</div>"}
+  let o="<div>"+(f.hi||"--")+(dif?" ("+zl(ts)+")":"")+" → "+(f.hf||"--")+(dif?" ("+zl(te)+")":"")+" · "+tr("amplW")+" "+(f.amp!=null?dur(f.amp):"--")+(dif?tr("tzSuf",sg):"")+"</div>";
+  if(dif&&f.hi&&f.hf&&f.amp!=null){let d=tm(f.hf)-tm(f.hi);if(d<0)d+=1440;o+="<div>"+tr("tzNote",dur(d),sg,dur(f.amp))+"</div>"}
   return o;
 }
 function hist(){
-  $("#hist").innerHTML=H.length?H.map((f,i)=>'<div class="hi"><b>'+fd(f.dt)+"</b><div>"+esc(f.pi||"?")+" → "+esc(f.pf||"?")+"</div>"+(f.ni?"<div>Ref. início: "+esc(f.ni)+"</div>":"")+(f.nf?"<div>Ref. fim: "+esc(f.nf)+"</div>":"")+histTime(f)+'<div class="k">'+(f.km!=null?f.km+" km":"-- km")+"</div>"+(f.ob?"<div>"+esc(f.ob)+"</div>":"")+'<button data-d="'+i+'">Apagar</button></div>').join(""):'<div class="h">Ainda não há fichas guardadas.</div>';
+  $("#hist").innerHTML=H.length?H.map((f,i)=>'<div class="hi"><b>'+fd(f.dt)+"</b><div>"+esc(f.pi||"?")+" → "+esc(f.pf||"?")+"</div>"+(f.ni?"<div>"+tr("refS")+": "+esc(f.ni)+"</div>":"")+(f.nf?"<div>"+tr("refE")+": "+esc(f.nf)+"</div>":"")+histTime(f)+'<div class="k">'+(f.km!=null?f.km+" km":"-- km")+"</div>"+(f.ob?"<div>"+esc(f.ob)+"</div>":"")+'<button data-d="'+i+'">'+tr("del")+'</button></div>').join(""):'<div class="h">'+tr("noSheets")+'</div>';
   $$("[data-d]").forEach(b=>b.onclick=()=>{
     if(b.dataset.c){H.splice(+b.dataset.d,1);persist();hist();return}
-    b.dataset.c=1;b.textContent="Toca para confirmar";setTimeout(()=>{b.dataset.c="";b.textContent="Apagar"},3000)});
+    b.dataset.c=1;b.textContent=tr("tapConf");setTimeout(()=>{b.dataset.c="";b.textContent=tr("del")},3000)});
 }
-function clear(){["pi","ki","hi","pf","kf","hf","ob","ni","nf"].forEach(i=>$("#"+i).value="");$("#dt").value=today();$("#hpi").textContent="";$("#hpf").textContent="";pre();calc()}
+function clear(){["pi","ki","hi","pf","kf","hf","ob","ni","nf"].forEach(i=>$("#"+i).value="");$("#dt").value=today();setMsg("#hpi",()=>"");setMsg("#hpf",()=>"");pre();calc()}
 $("#save").onclick=()=>{
   const r=calc();const hfv=$("#hf").value,dtv=$("#dt").value||today(),hiv=$("#hi").value,pfv=$("#pf").value,piv=$("#pi").value;
   H.unshift({dt:$("#dt").value||today(),pi:$("#pi").value.trim(),ki:$("#ki").value,hi:$("#hi").value,hf:$("#hf").value,pf:$("#pf").value.trim(),ni:$("#ni").value.trim(),nf:$("#nf").value.trim(),kf:$("#kf").value,km:r.km,amp:$("#hf").value?r.amp:null,ob:$("#ob").value.trim()});
@@ -324,59 +363,59 @@ $("#save").onclick=()=>{
   if(hfv){const te=tz(pfv),ts=tz(piv);askRest(hfv,endStamp(dtv,hiv,hfv,ts,te),te!==null?te:ts)}
 };
 $("#clr").onclick=clear;
-$("#exp").onclick=()=>{
+function buildReport(){
   const tot=H.reduce((s,f)=>s+(f.km>0?f.km:0),0);
-  $("#rep").value="RELATÓRIO DE FICHAS DIÁRIAS\nFichas: "+H.length+" · Total: "+tot+" km\n"+H.map(f=>"\n"+fd(f.dt)+"\nInício: "+(f.pi||"?")+" "+(f.hi||"--")+" (km "+(f.ki||"--")+")"+(f.ni?"\nRef. início: "+f.ni:"")+"\nFim: "+(f.pf||"?")+" "+(f.hf||"--")+" (km "+(f.kf||"--")+")"+(f.nf?"\nRef. fim: "+f.nf:"")+"\nPercorridos: "+(f.km!=null?f.km+" km":"--")+" · Amplitude: "+(f.amp!=null?dur(f.amp):"--")+(f.ob?"\nObs.: "+f.ob:"")).join("\n");
-  $("#repw").hidden=false;$("#rep").scrollIntoView({block:"center"});
-};
-$("#cp").onclick=async()=>{const t=$("#rep");t.select();try{await navigator.clipboard.writeText(t.value)}catch(e){document.execCommand("copy")}$("#cp").textContent="Copiado ✓";setTimeout(()=>$("#cp").textContent="📋 Copiar Texto",2000)};
+  $("#rep").value=tr("repTitle")+"\n"+tr("repSheets")+": "+H.length+" · "+tr("repTotal")+": "+tot+" km\n"+H.map(f=>"\n"+fd(f.dt)+"\n"+tr("repStart")+": "+(f.pi||"?")+" "+(f.hi||"--")+" (km "+(f.ki||"--")+")"+(f.ni?"\n"+tr("refS")+": "+f.ni:"")+"\n"+tr("repEnd")+": "+(f.pf||"?")+" "+(f.hf||"--")+" (km "+(f.kf||"--")+")"+(f.nf?"\n"+tr("refE")+": "+f.nf:"")+"\n"+tr("repKm")+": "+(f.km!=null?f.km+" km":"--")+" · "+tr("amp")+": "+(f.amp!=null?dur(f.amp):"--")+(f.ob?"\n"+tr("repObs")+": "+f.ob:"")).join("\n");
+}
+$("#exp").onclick=()=>{buildReport();$("#repw").hidden=false;$("#rep").scrollIntoView({block:"center"})};
+$("#cp").onclick=async()=>{const t=$("#rep");t.select();try{await navigator.clipboard.writeText(t.value)}catch(e){document.execCommand("copy")}$("#cp").textContent=tr("copied");setTimeout(()=>$("#cp").textContent=tr("cp"),2000)};
 const PCSS='body{font:14px system-ui,sans-serif;margin:16px}table{width:100%;border-collapse:collapse;font-size:12px}th,td{border:1px solid #999;padding:4px 6px;text-align:left;vertical-align:top}th{background:#eee}h1{font-size:20px}@page{size:A4 landscape;margin:12mm}';
 function pvHtml(){
-  const n=new Set(H.map(f=>f.dt)).size,tot=H.reduce((s,f)=>s+(f.km>0?f.km:0),0),per=fd(H[H.length-1].dt)+' a '+fd(H[0].dt);
-  const rw=H.map(f=>`<tr><td>${fd(f.dt)}</td><td>${esc(f.pi||'')}${f.ni?'<br><small>Ref.: '+esc(f.ni)+'</small>':''}</td><td>${esc(f.pf||'')}${f.nf?'<br><small>Ref.: '+esc(f.nf)+'</small>':''}</td><td>${f.hi||''}</td><td>${f.hf||''}</td><td>${f.amp!=null?dur(f.amp):''}</td><td>${f.ki||''}</td><td>${f.kf||''}</td><td>${f.km!=null?f.km:''}</td><td>${esc(f.ob||'')}</td></tr>`).join('');
-  return `<h1>Relatório Mensal de Jornada e Quilómetros</h1><p>Período: ${per} · Gerado em ${fd(today())}</p><p>Dias trabalhados: <b>${n}</b> · Total de KM percorridos: <b>${tot} km</b></p><table><tr><th>Data</th><th>País início</th><th>País fim</th><th>Hora início</th><th>Hora fim</th><th>Amplitude</th><th>KM inicial</th><th>KM final</th><th>KM percorridos</th><th>Observações</th></tr>${rw}</table>`;
+  const n=new Set(H.map(f=>f.dt)).size,tot=H.reduce((s,f)=>s+(f.km>0?f.km:0),0),per=tr('pvPer',fd(H[H.length-1].dt),fd(H[0].dt));
+  const rw=H.map(f=>`<tr><td>${fd(f.dt)}</td><td>${esc(f.pi||'')}${f.ni?'<br><small>'+tr('refSh')+': '+esc(f.ni)+'</small>':''}</td><td>${esc(f.pf||'')}${f.nf?'<br><small>'+tr('refSh')+': '+esc(f.nf)+'</small>':''}</td><td>${f.hi||''}</td><td>${f.hf||''}</td><td>${f.amp!=null?dur(f.amp):''}</td><td>${f.ki||''}</td><td>${f.kf||''}</td><td>${f.km!=null?f.km:''}</td><td>${esc(f.ob||'')}</td></tr>`).join('');
+  return `<h1>${tr('pvTitle')}</h1><p>${tr('pvPeriod')}: ${per} · ${tr('pvGen')} ${fd(today())}</p><p>${tr('pvDays')}: <b>${n}</b> · ${tr('pvKm')}: <b>${tot} km</b></p><table><tr>${tr('pvTh').map(x=>'<th>'+x+'</th>').join('')}</tr>${rw}</table>`;
 }
 async function saveF(fn,data,type){
-  const m=$('#xh');let D=null;
+  let D=null;
   try{D=window.claude?await claude.use('downloads'):null}catch(e){}
   try{
-    if(D){await D.save({filename:fn,data});m.textContent='Ficheiro pronto: '+fn}
-    else{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type}));a.download=fn;document.body.appendChild(a);a.click();a.remove();m.textContent='Download iniciado: '+fn+'. Se não aparecer, usa «Copiar Texto».'}
-  }catch(e){m.textContent=(e&&e.code==='declined')?'Guardar cancelado.':'Não foi possível guardar o ficheiro aqui. Usa «Copiar Texto».'}
+    if(D){await D.save({filename:fn,data});setMsg('#xh',()=>tr('fileReady',fn))}
+    else{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type}));a.download=fn;document.body.appendChild(a);a.click();a.remove();setMsg('#xh',()=>tr('dlStarted',fn))}
+  }catch(e){setMsg('#xh',()=>tr(e&&e.code==='declined'?'saveCancel':'saveFail'))}
 }
 $('#csv').onclick=()=>{
-  const m=$('#xh');if(!H.length){m.textContent='Ainda não há fichas guardadas.';return}
+  if(!H.length){setMsg('#xh',()=>tr('noSheets'));return}
   const Q=String.fromCharCode(34);
   const q=v=>{v=String(v==null?'':v);return(v.indexOf(Q)>=0||/[;\r\n]/.test(v))?Q+v.split(Q).join(Q+Q)+Q:v};
-  const rows=[['Data','País Início','Referência Início','País Fim','Referência Fim','Hora Início','Hora Fim','Amplitude','KM Inicial','KM Final','KM Percorridos','Observações']].concat(H.map(f=>[fd(f.dt),f.pi,f.ni,f.pf,f.nf,f.hi,f.hf,f.amp!=null?dur(f.amp):'',f.ki,f.kf,f.km,f.ob]));
-  saveF('fichas_jornada_'+today()+'.csv','\uFEFF'+rows.map(r=>r.map(q).join(';')).join('\r\n'),'text/csv;charset=utf-8');
+  const rows=[tr('csvH')].concat(H.map(f=>[fd(f.dt),f.pi,f.ni,f.pf,f.nf,f.hi,f.hf,f.amp!=null?dur(f.amp):'',f.ki,f.kf,f.km,f.ob]));
+  saveF(tr('fnCsv')+today()+'.csv','\uFEFF'+rows.map(r=>r.map(q).join(';')).join('\r\n'),'text/csv;charset=utf-8');
 };
 $('#pdf').onclick=()=>{
-  const m=$('#xh');if(!H.length){m.textContent='Ainda não há fichas guardadas.';return}
+  if(!H.length){setMsg('#xh',()=>tr('noSheets'));return}
   let pv=$('#pv');if(!pv){pv=document.createElement('div');pv.id='pv';document.body.appendChild(pv)}
-  pv.innerHTML=`<div class='tb'><button id='p1'>🖨️ Imprimir / Guardar PDF</button><button id='p2'>💾 Guardar como HTML</button><button id='p3'>✕ Fechar</button></div><p class='pn'>Se o menu de impressão não abrir, guarda como HTML, abre o ficheiro no navegador e imprime aí. Escolhe «Guardar como PDF».</p>`+pvHtml();
+  pv.innerHTML=`<div class='tb'><button id='p1'>${tr('pvPrint')}</button><button id='p2'>${tr('pvHtml')}</button><button id='p3'>${tr('pvClose')}</button></div><p class='pn'>${tr('pvNote')}</p>`+pvHtml();
   pv.classList.add('on');pv.scrollTop=0;
   $('#p1').onclick=()=>{try{window.print()}catch(e){}};
-  $('#p2').onclick=()=>saveF('relatorio_jornada_'+today()+'.html','<!DOCTYPE html><html lang="pt-PT"><head><meta charset="utf-8"><title>Relatório de Jornada</title><style>'+PCSS+'</style></head><body>'+pvHtml()+'</body></html>','text/html;charset=utf-8');
+  $('#p2').onclick=()=>saveF(tr('fnHtml')+today()+'.html','<!DOCTYPE html><html lang="'+LOC[LG]+'"><head><meta charset="utf-8"><title>'+tr('pvDocT')+'</title><style>'+PCSS+'</style></head><body>'+pvHtml()+'</body></html>','text/html;charset=utf-8');
   $('#p3').onclick=()=>pv.classList.remove('on');
   setTimeout(()=>{try{window.print()}catch(e){}},400);
 };
 $('#sh').onclick=async()=>{
-  const m=$('#xh'),t=$('#rep').value;
-  if(!navigator.share){m.textContent='A partilha nativa não é suportada neste navegador ou na pré-visualização. Usa «Copiar Texto» e cola no WhatsApp ou no e-mail.';return}
-  try{await navigator.share({title:'Relatório de Jornada e Quilómetros',text:t});m.textContent=''}
-  catch(e){m.textContent=(e&&e.name==='AbortError')?'':'Não consegui abrir a partilha aqui. Usa «Copiar Texto» e cola no WhatsApp ou no e-mail.'}
+  const t=$('#rep').value;
+  if(!navigator.share){setMsg('#xh',()=>tr('shareNo'));return}
+  try{await navigator.share({title:tr('shareTitle'),text:t});setMsg('#xh',()=>'')}
+  catch(e){setMsg('#xh',()=>(e&&e.name==='AbortError')?'':tr('shareFail'))}
 };
 
 $$("nav button").forEach(b=>b.onclick=()=>{$$("nav button").forEach(x=>x.classList.toggle("on",x===b));$$(".tab").forEach(t=>t.classList.toggle("on",t.id===b.dataset.t));scrollTo(0,0)});
 $$("li").forEach(l=>l.onclick=()=>l.classList.toggle("d"));
-const SC=["Portugal","Espanha - PV","Espanha - CL","Espanha - AN","Espanha - CT","França","Reino Unido"];
-$$(".sc").forEach(d=>{d.innerHTML=SC.map(x=>'<button type="button">'+x+'</button>').join("");d.onclick=e=>{if(e.target.tagName==="BUTTON"){$("#"+d.dataset.for).value=e.target.textContent;calc()}}});
-function pre(){let u={};try{u=JSON.parse(localStorage.getItem("ultimo")||"{}")}catch(e){}$("#ki").value=u.kf||"";$("#pi").value=u.pf||"";$("#hpi").textContent=(u.pf||u.kf)?"Veio da ficha anterior. Podes editar.":""}
+function renderSC(){$$(".sc").forEach(d=>{d.innerHTML=tr("sc").map(x=>'<button type="button">'+x+'</button>').join("")})}
+$$(".sc").forEach(d=>{d.onclick=e=>{if(e.target.tagName==="BUTTON"){$("#"+d.dataset.for).value=e.target.textContent;calc()}}});renderSC();
+function pre(){let u={};try{u=JSON.parse(localStorage.getItem("ultimo")||"{}")}catch(e){}$("#ki").value=u.kf||"";$("#pi").value=u.pf||"";setMsg("#hpi",()=>(u.pf||u.kf)?tr("fromPrev"):"")}
 
 let R={s:"",ty:"",r:""};
 try{R=Object.assign(R,JSON.parse(localStorage.getItem("repouso")||"{}"))}catch(e){}
-const dl=d=>d.toLocaleString("pt-PT",{weekday:"long",day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"});
+const dl=d=>d.toLocaleString(LOC[LG],{weekday:"long",day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"});
 const fh=h=>{const m=Math.round(h*60);return Math.floor(m/60)+"h"+String(m%60).padStart(2,"0")};
 const nowL=()=>new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,16);
 function rest(){
@@ -384,34 +423,34 @@ function rest(){
   R.s=fs;R.r=fr;try{localStorage.setItem("repouso",JSON.stringify(R))}catch(e){}
   $$("[data-ty]").forEach(b=>b.classList.toggle("on",b.dataset.ty===R.ty));
   const set=(id,c,v,m)=>{const el=$(id);el.className="big "+c;el.innerHTML='<div class="v s">'+v+'</div><div class="m">'+m+"</div>"};
-  if(!fs){set("#rfim","","--","Define o início do descanso");set("#rres","","--","");set("#rnext","","--","");return}
+  if(!fs){set("#rfim","","--",tr("rNoStart"));set("#rres","","--","");set("#rnext","","--","");return}
   const s=new Date(fs);
-  if(P)set("#rfim","ok",dl(new Date(+s+P*36e5)),"Aqui completas as "+P+"h");else set("#rfim","","--","Escolhe o tipo planeado");
+  if(P)set("#rfim","ok",dl(new Date(+s+P*36e5)),tr("rHere",P));else set("#rfim","","--",tr("rPickType"));
   let end=null,dur=null,plan=false;
-  if(fr){end=new Date(fr);dur=(end-s)/36e5;if(dur<=0){set("#rres","x","Hora inválida","O arranque tem de ser depois do início.");set("#rnext","","--","");return}}
+  if(fr){end=new Date(fr);dur=(end-s)/36e5;if(dur<=0){set("#rres","x",tr("rBadT"),tr("rBadM"));set("#rnext","","--","");return}}
   else if(P){dur=P;end=new Date(+s+P*36e5);plan=true}
-  if(dur===null){set("#rres","","--","Escolhe o tipo planeado ou regista o arranque");set("#rnext","","--","");return}
-  const tag=plan?" Com base no tipo planeado.":"";
-  if(dur<24){set("#rres","x","Menos de 24h","Fizeste "+fh(dur)+". Não conta como descanso semanal. Faltam "+fh(24-dur)+" para as 24h.");set("#rnext","","--","");return}
+  if(dur===null){set("#rres","","--",tr("rPickOrReg"));set("#rnext","","--","");return}
+  const tag=plan?tr("rPlanTag"):"";
+  if(dur<24){set("#rres","x",tr("rLt24"),tr("rLt24m",fh(dur),fh(24-dur)));set("#rnext","","--","");return}
   if(dur<45){
     const d=new Date(s);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7)+28);
-    set("#rres","w","Descanso Reduzido","Fizeste "+fh(dur)+". Faltam compensar <b>"+fh(45-dur)+"</b>, até <b>"+dl(new Date(d-6e4))+"</b> (fim da 3.ª semana seguinte). Tem de ser tomado de uma vez, junto a outro descanso de pelo menos 9h."+tag)}
-  else set("#rres","ok","Descanso Normal Concluído (45h+)","Fizeste "+fh(dur)+". Sem dívida de compensação."+tag);
-  set("#rnext",dur<45?"w":"ok",dl(new Date(+end+144*36e5)),"Data e hora limite para INICIAR a próxima pausa semanal (6 × 24h depois do fim desta). "+(dur<45?"<b>A próxima TEM DE SER de 45h.</b> Não podes fazer duas reduzidas seguidas.":"<b>A próxima pode ser de 24h ou de 45h.</b>"));
+    set("#rres","w",tr("rRed"),tr("rRedM",fh(dur),fh(45-dur),dl(new Date(d-6e4)),tag))}
+  else set("#rres","ok",tr("rNorm"),tr("rNormM",fh(dur),tag));
+  set("#rnext",dur<45?"w":"ok",dl(new Date(+end+144*36e5)),tr("rNextM")+tr(dur<45?"rNextR":"rNextN"));
 }
 $("#rs").value=R.s;$("#rr").value=R.r;
 ["rs","rr"].forEach(i=>$("#"+i).addEventListener("input",rest));
 $("#rsn").onclick=()=>{$("#rs").value=nowL();rest()};
 $("#rrn").onclick=()=>{$("#rr").value=nowL();rest()};
 $$("[data-ty]").forEach(b=>b.onclick=()=>{R.ty=b.dataset.ty;rest()});
-$("#rclr").onclick=function(){if(this.dataset.c){R={s:"",ty:"",r:""};$("#rs").value="";$("#rr").value="";this.dataset.c="";this.textContent="Limpar pausa";rest();return}this.dataset.c=1;this.textContent="Toca para confirmar";setTimeout(()=>{this.dataset.c="";this.textContent="Limpar pausa"},3000)};
+$("#rclr").onclick=function(){if(this.dataset.c){R={s:"",ty:"",r:""};$("#rs").value="";$("#rr").value="";this.dataset.c="";this.textContent=tr("rclr");rest();return}this.dataset.c=1;this.textContent=tr("tapConf");setTimeout(()=>{this.dataset.c="";this.textContent=tr("rclr")},3000)};
 rest();
 
-const NM=['Volante','Martelos','Disponibilidade','Cama'];
+let curEx=0;
 const EX=[
-{h:{d:'12/11/2026',fr:'Porto (PT)',to:'Madrid (ES)',ki:'377396',kf:'377988',kt:'592'},t:'Dia completo: não ficam falhas entre as 0h e as 24h.',s:[[3,0,7],[1,7,8],[0,8,12],[1,12,12.5],[3,12.5,13.5],[1,13.5,14.5],[0,14.5,18],[3,18,24]]},
-{h:{d:'15/11/2026',fr:'Porto (PT)',to:'Porto (PT)',ki:'377988',kf:'377988',kt:'0'},t:'Linha reta na cama durante as 24h. Útil para justificar repouso fora do camião.',s:[[3,0,24]]},
-{h:{d:'13/11/2026',fr:'Lisboa (PT)',to:'Badajoz (ES)',ki:'377988',kf:'378231',kt:'243'},t:'A linha pára às 11h15, que é o último registo deste exemplo.',s:[[3,0,6],[1,6,6.5],[0,6.5,10.5],[3,10.5,11.25]]}];
+{h:{d:'12/11/2026',fr:'Porto (PT)',to:'Madrid (ES)',ki:'377396',kf:'377988',kt:'592'},t:'ex0t',s:[[3,0,7],[1,7,8],[0,8,12],[1,12,12.5],[3,12.5,13.5],[1,13.5,14.5],[0,14.5,18],[3,18,24]]},
+{h:{d:'15/11/2026',fr:'Porto (PT)',to:'Porto (PT)',ki:'377988',kf:'377988',kt:'0'},t:'ex1t',s:[[3,0,24]]},
+{h:{d:'13/11/2026',fr:'Lisboa (PT)',to:'Badajoz (ES)',ki:'377988',kf:'378231',kt:'243'},t:'ex2t',s:[[3,0,6],[1,6,6.5],[0,6.5,10.5],[3,10.5,11.25]]}];
 const X0=36,HW=24,RH=28;
 const hf=h=>{const m=Math.round(h%1*60);return String(Math.floor(h)).padStart(2,'0')+'h'+(m?String(m).padStart(2,'0'):'')};
 function sym(r,x,y){
@@ -433,16 +472,16 @@ function grid(y0,g0,S){
 function draw(k){
   const e=EX[k],h=e.h;
   const fl=(x,y,w,l,v)=>`<text class='lb' x='${x}' y='${y-11}'>${l}</text><path d='M${x} ${y+3}H${x+w}' stroke='#999' stroke-width='.8'/><text class='pen' x='${x+3}' y='${y}'>${v}</text>`;
-  const s=`<rect x='2' y='2' width='356' height='442' rx='4' fill='#f7f5ee' stroke='#bdb9a8'/><text class='lb' x='180' y='15' text-anchor='middle'>VERSO DO TICKET (esquema ilustrativo)</text>`
-   +fl(10,44,340,'Nome','João Silva')+fl(10,70,190,'Cartão N.º','PT 0000000000 1')+fl(210,70,140,'Matrícula','00-AA-00')
-   +fl(10,96,165,'Local de início (From)',h.fr)+fl(185,96,165,'Local de fim (To)',h.to)
-   +fl(10,122,120,'Data',h.d)+fl(140,122,210,'Assinatura','')+`<path d='M152 119q8-14 14 0t14 0t14-3q10-10 20 3' fill='none' stroke='#1b2f7a' stroke-width='1.4'/>`
-   +fl(10,148,105,'Km início',h.ki)+fl(125,148,105,'Km fim',h.kf)+fl(240,148,110,'Km total',h.kt)
+  const s=`<rect x='2' y='2' width='356' height='442' rx='4' fill='#f7f5ee' stroke='#bdb9a8'/><text class='lb' x='180' y='15' text-anchor='middle'>${tr('tkTitle')}</text>`
+   +fl(10,44,340,tr('tkName'),'João Silva')+fl(10,70,190,tr('tkCard'),'PT 0000000000 1')+fl(210,70,140,tr('tkPlate'),'00-AA-00')
+   +fl(10,96,165,tr('tkFrom'),h.fr)+fl(185,96,165,tr('tkTo'),h.to)
+   +fl(10,122,120,tr('tkDate'),h.d)+fl(140,122,210,tr('tkSign'),'')+`<path d='M152 119q8-14 14 0t14 0t14-3q10-10 20 3' fill='none' stroke='#1b2f7a' stroke-width='1.4'/>`
+   +fl(10,148,105,tr('tkKmS'),h.ki)+fl(125,148,105,tr('tkKmE'),h.kf)+fl(240,148,110,tr('tkKmT'),h.kt)
    +grid(176,0,e.s)+grid(322,12,e.s);
   $('#tk').innerHTML=s;
-  $('#exs').innerHTML='<b>'+e.s.map(x=>hf(x[1])+'–'+hf(x[2])+' '+NM[x[0]]).join(' → ')+'</b><br>'+e.t;
+  $('#exs').innerHTML='<b>'+e.s.map(x=>hf(x[1])+'–'+hf(x[2])+' '+tr('nm')[x[0]]).join(' → ')+'</b><br>'+tr(e.t);
 }
-$$('[data-ex]').forEach(b=>b.onclick=()=>{$$('[data-ex]').forEach(x=>x.classList.toggle('on',x===b));draw(+b.dataset.ex)});
+$$('[data-ex]').forEach(b=>b.onclick=()=>{$$('[data-ex]').forEach(x=>x.classList.toggle('on',x===b));curEx=+b.dataset.ex;draw(curEx)});
 $('#pp').onclick=function(){this.classList.toggle('z')};
 draw(0);
 
@@ -453,27 +492,27 @@ const dsave=()=>{if(!D.s)D.z=null;try{localStorage.setItem("repDiario",JSON.stri
 function daily(){
   const X=D.log.filter(c=>c==="n").length,Y=D.log.filter(c=>c==="r").length;
   const c=$("#dc");c.className="big "+(Y>=3?"x":Y===2?"w":"ok");
-  c.innerHTML='<div class="v s">Normais (11h): '+X+' · Reduzidas (9h): '+Y+' / 3</div>';
+  c.innerHTML='<div class="v s">'+tr("dcT",X,Y)+'</div>';
   const w=$("#dw");
-  if(Y<3){const r=3-Y;w.className="wn "+(Y===2?"w":"ok");w.textContent="Podes fazer 9h ("+(r>1?"restam "+r+" reduções":"resta 1 redução")+") ou 11h."}
-  else{w.className="wn x";w.textContent="⚠️ Limite atingido (3/3): O próximo repouso TEM DE SER de 11h (ou fracionado 3h+9h)!"}
+  if(Y<3){const r=3-Y;w.className="wn "+(Y===2?"w":"ok");w.textContent=r>1?tr("dwMany",r):tr("dwOne")}
+  else{w.className="wn x";w.textContent=tr("dwMax")}
   const ds=$("#ds").value,bx=$("#dcalc");
   if(!ds){bx.hidden=true}
-  else{const z=dz0(),i=stampToInstant(ds,z);bx.hidden=isNaN(i);if(!isNaN(i)){const f=h=>dl(new Date(instantToStamp(i+h*36e5,z)));bx.innerHTML="Repouso reduzido <b>9h</b> completa: <b>"+f(9)+"</b><br>Repouso normal <b>11h</b> completa: <b>"+f(11)+"</b>"}}
-  $("#dzl").textContent=ds&&dz0()!==null?"Hora no fuso do local de fim ("+zl(dz0())+"). A duração real já ajusta a diferença para o fuso do telemóvel.":""
+  else{const z=dz0(),i=stampToInstant(ds,z);bx.hidden=isNaN(i);if(!isNaN(i)){const f=h=>dl(new Date(instantToStamp(i+h*36e5,z)));bx.innerHTML=tr("dcalc",f(9),f(11))}}
+  $("#dzl").textContent=ds&&dz0()!==null?tr("dzl",zl(dz0())):""
   renderRestCard();
 }
 function dreg(k){
   const had=!!$("#ds").value;
   D.log.push(k);D.s="";$("#ds").value="";dsave();daily();
-  $("#dm").textContent=(k==="n"?"Repouso normal (11h) registado.":"Repouso reduzido (9h) registado.")+(had?" O início do repouso foi limpo.":"");
+  setMsg("#dm",()=>tr(k==="n"?"dmN":"dmR")+(had?tr("dmCleared"):""));
 }
 $("#dn").onclick=()=>dreg("n");
 $("#dr").onclick=()=>dreg("r");
-$("#du").onclick=()=>{$("#dm").textContent=D.log.length?"Último registo desfeito.":"Não há registos para desfazer.";D.log.pop();dsave();daily()};
+$("#du").onclick=()=>{setMsg("#dm",D.log.length?()=>tr("dmUndo"):()=>tr("dmNoUndo"));D.log.pop();dsave();daily()};
 $("#dz").onclick=function(){
-  if(this.dataset.c){D={log:[],s:""};$("#ds").value="";dsave();daily();this.dataset.c="";this.textContent="Repor semana (0/0)";$("#dm").textContent="Semana reposta: 0 normais e 0 reduzidos.";return}
-  this.dataset.c=1;this.textContent="Toca para confirmar";setTimeout(()=>{this.dataset.c="";this.textContent="Repor semana (0/0)"},3000)};
+  if(this.dataset.c){D={log:[],s:""};$("#ds").value="";dsave();daily();this.dataset.c="";this.textContent=tr("dz");setMsg("#dm",()=>tr("dmReset"));return}
+  this.dataset.c=1;this.textContent=tr("tapConf");setTimeout(()=>{this.dataset.c="";this.textContent=tr("dz")},3000)};
 $("#dsn").onclick=()=>{const z=dz0();$("#ds").value=z===null?nowL():instantToStamp(Date.now(),z);D.s=$("#ds").value;dsave();daily()};
 $("#ds").addEventListener("input",()=>{D.s=$("#ds").value;dsave();daily()});
 const p2=n=>String(n).padStart(2,"0");
@@ -505,27 +544,27 @@ function ask(html,btns){
   $("#md").hidden=false;mb.firstChild.focus();
 }
 function askRest(hf,stamp,z){
-  const ja=D.s?"<p>Já tens um repouso em curso desde <b>"+fs2(D.s)+"</b>. Se iniciares outro, este é substituído.</p>":"";
+  const ja=D.s?tr("askHave",fs2(D.s)):"";
   let tzn="";
   if(z!==null){const i=stampToInstant(stamp,z),d=-new Date(i).getTimezoneOffset()-zoneOffMin(z,i);
-    if(d!==0)tzn="<p>⏱️ Fuso do local de fim: <b>"+zl(z)+"</b>. O relógio do telemóvel está <b>"+(Math.abs(d)%60?fm(Math.abs(d)):Math.abs(d)/60+"h")+"</b> "+(d>0?"à frente":"atrás")+"; a contagem já ajusta isso.</p>"}
-  ask("<p>Turno terminado às <b>"+esc(hf)+"</b>. Queres iniciar o registo do teu repouso diário a partir desta hora?</p>"+tzn+ja,
-    [{t:"🛏️ Iniciar Repouso ("+hf+")",p:1,f:()=>{D.s=stamp;D.z=z;dsave();$("#ds").value=stamp;ign=false;daily()}},{t:"Agora não"}]);
+    if(d!==0)tzn=tr("askTz",zl(z),(Math.abs(d)%60?fm(Math.abs(d)):Math.abs(d)/60+"h"),tr(d>0?"ahead":"behind"))}
+  ask(tr("askMain",esc(hf))+tzn+ja,
+    [{t:tr("askStart",hf),p:1,f:()=>{D.s=stamp;D.z=z;dsave();$("#ds").value=stamp;ign=false;daily()}},{t:tr("askNo")}]);
 }
 function renderRestCard(scr){
   const c=$("#rc"),m=D.s&&!ign?restMins():null;
   if(m===null){c.hidden=true;return}
   c.hidden=false;
-  $("#rct").textContent="🛏️ Repouso em curso desde "+fs2(D.s)+(dz0()!==null?" ("+zl(dz0())+")":"")+" — Duração até agora: "+fm(m)+".";
+  $("#rct").textContent=tr("rcT",fs2(D.s),dz0()!==null?" ("+zl(dz0())+")":"",fm(m));
   const Y=D.log.filter(k=>k==="r").length,st=$("#rcs");
-  const wk=m>=1440;$("#rcw").hidden=!wk;$("#rcy").textContent=wk?"🛏️ Confirmar como Repouso Diário Normal (11h)":"✅ Confirmar fim do repouso agora";
-  if(m>=2700){st.className="rs g";st.textContent="🎉 Já atingiste 45h+: conta como Pausa Semanal Normal (45h)!"}
-  else if(wk){st.className="rs g";st.textContent="🎉 Já atingiste 24h+: conta como Pausa Semanal Reduzida (24h)!"}
-  else if(m>=660){st.className="rs g";st.textContent="✅ Já atingiste as 11h: conta como repouso Normal."}
+  const wk=m>=1440;$("#rcw").hidden=!wk;$("#rcy").textContent=tr(wk?"rcyN":"rcy");
+  if(m>=2700){st.className="rs g";st.textContent=tr("rs45")}
+  else if(wk){st.className="rs g";st.textContent=tr("rs24")}
+  else if(m>=660){st.className="rs g";st.textContent=tr("rs11")}
   else if(m>=540){
     st.className="rs "+(Y>=3?"r":"y");
-    st.textContent="✅ Já atingiste as 9h: conta como repouso Reduzido. Faltam "+fm(660-m)+" para as 11h (Normal)."+(Y>=3?" ⚠️ Já tens 3/3 reduzidos: se terminares agora, passas o limite.":"")
-  }else{st.className="rs y";st.textContent="Ainda faltam "+fm(540-m)+" para as 9h (Reduzido) e "+fm(660-m)+" para as 11h (Normal)."}
+    st.textContent=tr("rs9",fm(660-m))+(Y>=3?tr("rs9w"):"")
+  }else{st.className="rs y";st.textContent=tr("rsLt",fm(540-m),fm(660-m))}
   if(scr)window.scrollTo({top:0,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
 }
 function closeRest(k,m){
@@ -533,16 +572,16 @@ function closeRest(k,m){
   D.s="";$("#ds").value="";dsave();ign=false;
   const h=nowHM();$("#hi").value=h;calc();daily();
   const Y=D.log.filter(x=>x==="r").length;let t;
-  if(k==="n")t="✅ Repouso normal (11h) registado. Duração: <b>"+fm(m)+"</b>.";
-  else if(k==="r")t="✅ Repouso reduzido (9h) registado. Duração: <b>"+fm(m)+"</b>."+(Y===3?"<br>⚠️ Limite atingido (3/3): O próximo repouso TEM DE SER de 11h (ou fracionado 3h+9h)!":Y>3?"<br>⚠️ Limite ultrapassado ("+Y+"/3): confirma com o tacógrafo e a empresa.":"<br>Reduzidas: "+Y+" / 3.");
-  else t="Repouso encerrado sem contar como repouso diário válido (duração: "+fm(m)+").";
-  ask("<p>"+t+"</p><p>Hora de início da nova ficha: <b>"+h+"</b>.</p>",[{t:"OK",p:1}]);
+  if(k==="n")t=tr("crN",fm(m));
+  else if(k==="r")t=tr("crR",fm(m))+(Y===3?"<br>"+tr("dwMax"):Y>3?tr("crOver",Y):tr("crCnt",Y));
+  else t=tr("crNone",fm(m));
+  ask("<p>"+t+"</p>"+tr("crNew",h),[{t:"OK",p:1}]);
 }
 $("#rcy").onclick=()=>{
   const m=restMins();if(m===null)return;
   if(m<540){
-    ask("<p>O repouso ficou <b>incompleto</b>: "+fm(m)+" (menos de 9h).</p><p>Queres mesmo encerrar sem contar como repouso diário válido?</p>",
-      [{t:"Encerrar sem contar",p:1,f:()=>closeRest(null,m)},{t:"Voltar (continuar repouso)"}]);return}
+    ask(tr("incMsg",fm(m)),
+      [{t:tr("incEnd"),p:1,f:()=>closeRest(null,m)},{t:tr("incBack")}]);return}
   closeRest(m>=660?"n":"r",m);
 };
 function closeWeekly(m){
@@ -551,24 +590,25 @@ function closeWeekly(m){
   $("#rs").value=loc(i);$("#rr").value=loc(now);R.ty=m>=2700?"45":"24";rest();
   D={log:[],s:""};$("#ds").value="";dsave();ign=false;
   const h=nowHM();$("#hi").value=h;calc();daily();
-  ask("<p>✅ Pausa semanal registada: <b>"+fm(m)+"</b> ("+(m>=2700?"Normal, 45h+":"Reduzida, 24h")+").</p><p>Contadores de repouso diário repostos (0/0). O resultado e a compensação estão na aba Pausas e Repousos.</p><p>Hora de início da nova ficha: <b>"+h+"</b>.</p>",
-    [{t:"Ver na aba Pausas",p:1,f:()=>document.querySelector("nav button[data-t=t3]").click()},{t:"OK"}]);
+  ask(tr("cwMsg",fm(m),tr(m>=2700?"cwNorm":"cwRed"))+tr("crNew",h),
+    [{t:tr("cwGo"),p:1,f:()=>document.querySelector("nav button[data-t=t3]").click()},{t:"OK"}]);
 }
 $("#rcw").onclick=()=>{const m=restMins();if(m!==null)closeWeekly(m)};
 $("#rcn").onclick=()=>{ign=true;renderRestCard()};
-$("#dcl").onclick=()=>{D.s="";$("#ds").value="";dsave();daily();$("#dm").textContent="Início do repouso em curso limpo."};
+$("#dcl").onclick=()=>{D.s="";$("#ds").value="";dsave();daily();setMsg("#dm",()=>tr("dmClrStart"))};
 document.querySelector("[data-n=hi]").addEventListener("click",()=>{ign=false;renderRestCard(true)});
 setInterval(renderRestCard,30000);
 $("#ds").value=D.s;daily();
 
 $("#dt").value=today();hist();pre();calc();setInterval(calc,30000);
+$$(".lg button").forEach(b=>b.onclick=()=>setLang(b.dataset.l));
+applyLang();
 </script>
 <script>
 (function(){const s=document.getElementById('splash');if(!s)return;let d=false;
 const close=()=>{if(d)return;d=true;s.classList.add('out');setTimeout(()=>s.remove(),700)};
 s.onclick=close;s.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();close()}};setTimeout(close,2000)})();
 </script>
-<script data-goatcounter="https://vanthrabit-copiloto.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+<script data-goatcounter="https://goatcounter.com" async src="https://zgo.at"></script>
 </body>
 </html>
