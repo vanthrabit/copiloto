@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.vanthrabit.twa",
+        "sha256_cert_fingerprints": ["F2:01:91:49:05:9A:11:92:8F:28:74:93:0F:36:D9:07:A7:07:24:65:C7:37:6E:68:68:E7:C9:DA:06:6E:6E:AE"]
+      }
+    }]
