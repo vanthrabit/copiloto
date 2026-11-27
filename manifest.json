@@ -1,19 +1,20 @@
 {
-  "name": "Copiloto — Agenda & Comunidade de Motoristas",
+  "name": "Copiloto",
   "short_name": "Copiloto",
-  "description": "Agenda inteligente de apoio ao tacógrafo, gestão de descansos e comunidade de motoristas na estrada.",
-  "start_url": "/copiloto/",
-  "scope": "/copiloto/",
+  "description": "Ficha diária, pausas e repousos, e comunidade de estrada para motoristas.",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0f172a",
   "theme_color": "#0f172a",
+  "lang": "pt-PT",
   "icons": [
     {
       "src": "icon.png",
-      "sizes": "512x512",
+      "sizes": "1254x1254",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }
